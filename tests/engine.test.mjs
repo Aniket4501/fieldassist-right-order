@@ -978,7 +978,8 @@ test('credit: fits, does not fit, the order to protect, and what to collect', ()
   assert.equal(tight.fits, false);
   assert.deepEqual(tight.priority, ['S', 'T', 'N']);
   assert.equal(tight.unlockByCollecting, 1500);                                 // the whole overdue, less than the gap
-  assert.equal(tight.text, 'Fits ₹2,000 — first: Product S (runs out first). Collect ₹1,500 to add the rest');
+  // Collecting ₹1,500 does not cover the ₹2,500 gap, so the text says what it does buy: ₹3,500 of room.
+  assert.equal(tight.text, 'Fits ₹2,000 — first: Product S (runs out first). Collect ₹1,500 to fit ₹3,500');
   const just = run({ outlet, orders }, { S: 5 }).credit;
   assert.equal(just.unlockByCollecting, 500);                                   // only the gap
   assert.match(just.text, /Collect ₹500 to add the rest$/);

@@ -305,12 +305,17 @@ export function recommend(ctx) {
   const priority = cartSkus.slice().sort((a, b) => (runsOut(a) < runsOut(b) ? -1 : runsOut(a) > runsOut(b) ? 1 : 0));
   const fits = room.known ? totals.netValue <= room.available : null;
   const overdue = isObject(outlet.credit) && Number(outlet.credit.overdue) > 0 ? Number(outlet.credit.overdue) : 0;
-  const unlock = fits === false && overdue > 0 ? Math.min(overdue, totals.netValue - room.available) : 0;
+  const gap = fits === false ? totals.netValue - room.available : 0;
+  const unlock = fits === false && overdue > 0 ? Math.min(overdue, gap) : 0;
   let creditText = null;
   if (fits === false) {
-    creditText = `Fits ${inr(Math.max(0, Number(room.available) || 0))}`
+    const roomNow = Math.max(0, Number(room.available) || 0);
+    // Collecting the overdue covers the rest only when it is at least the gap; otherwise say what it does buy.
+    const collect = unlock <= 0 ? ''
+      : (unlock >= gap ? `. Collect ${inr(unlock)} to add the rest` : `. Collect ${inr(unlock)} to fit ${inr(roomNow + unlock)}`);
+    creditText = `Fits ${inr(roomNow)}`
       + (priority.length ? ` — first: ${nameOf(priority[0])} (runs out first)` : '')
-      + (unlock > 0 ? `. Collect ${inr(unlock)} to add the rest` : '');
+      + collect;
   }
   const credit = {
     known: room.known === true, available: room.available, bookedToday: room.bookedToday || 0,

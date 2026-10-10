@@ -61,8 +61,17 @@
   display: flex;
   align-items: center;
   gap: var(--sp-8);
+  width: 100%;
+  min-height: var(--control-h);
+  padding: 0;
   font-size: var(--fs-14);
   line-height: var(--lh-tight);
   color: var(--warn-ink);
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  background: none;
+  border: 0;
+  border-radius: var(--r-control);
 }
 .ro-submit-why > .icon { flex: none; color: var(--warn); }

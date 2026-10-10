@@ -429,15 +429,19 @@ function rightOrderCard(data, outlet) {
       .map((line) => Number(line.recommendedCases) - (Number(line.cartCases) || 0))
       .filter((add) => add > 0);
     const rest = others.reduce((sum, add) => sum + add, 0);
-    lines.replaceChildren(...toAdd.map(({ line, add }) => h('li', { class: 'ro-line' },
+    const rows = toAdd.map(({ line, add }) => h('li', { class: 'ro-line' },
       h('p', { class: 'ro-line__main num' },
         h('span', { class: 'ro-line__add', text: `+${num(add)}` }),
         h('span', { class: 'ro-line__what' },
           h('span', { text: nameOf(line.sku) }),
           till && h('span', { class: 'ro-line__till', text: ` · lasts till ${till}` }))),
-      line.reasonShort && h('p', { class: 'ro-line__reason num', text: line.reasonShort }))),
-    toAdd.length > 0 && rest > 0 && h('li', { class: 'ro-line ro-line--rest' },
-      h('p', { class: 'ro-line__reason num', text: `+${num(rest)} on ${plural(others.length, 'other item', 'other items')}` })));
+      line.reasonShort && h('p', { class: 'ro-line__reason num', text: line.reasonShort })));
+    // Only nodes go to replaceChildren: the browser would print a false as the word "false".
+    if (toAdd.length > 0 && rest > 0) {
+      rows.push(h('li', { class: 'ro-line ro-line--rest' },
+        h('p', { class: 'ro-line__reason num', text: `+${num(rest)} on ${plural(others.length, 'other item', 'other items')}` })));
+    }
+    lines.replaceChildren(...rows);
     lines.hidden = toAdd.length === 0;
 
     const flagWords = kind === 'none' ? null : result.window && result.window.flag;

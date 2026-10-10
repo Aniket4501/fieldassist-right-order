@@ -40,6 +40,7 @@ How the feature was checked (10 Oct, on the final code):
 - **Odd data:** with damaged copies of the data files served to the browser (an outlet without credit, cooler, cluster, glass or notes; no peer table; no calendar; no order history; no route plan; no distributor stock; no schemes; products without prices) every screen still renders and nothing is logged as an error. An outlet with no history and no peer data reads "Check data".
 - **Rules:** searches over `js/`, `css/` and `index.html` find no device clock, randomness, locale formatting, `innerHTML`, absolute path, external URL, or outlet id, SKU, product name or channel name typed into code.
 - **Speed:** one `recommend()` call averages about 1 ms; 20 quick taps on a stepper recompute and lay out in at most 6.3 ms each (median 2.8 ms), with nothing moving under the finger. The longest painted frame in a second run of 20 taps was 18.7 ms, in headless Chrome at 3× pixel density.
+- **After the deploy (10 Oct, evening):** two independent reviewers looked at the live site screen by screen (60 screenshots at 390 and 360 wide) and found three defects, all fixed and re-published the same evening. (1) The Right Order card printed the word "false" under its lines whenever the three lines shown were the whole suggestion (two outlets with an empty cart, more with a part-filled cart): a `false` was passed to the browser's own `replaceChildren()`, which prints it. (2) The credit sentence said "Collect ₹X to add the rest" even when the overdue amount was smaller than the gap; it now says what the collection does buy ("Collect ₹1,600 to fit ₹4,000") and keeps "to add the rest" for when it is true. (3) On review, the note "Pick a reason for N line(s) above" sat over a disabled Submit while the reason chips could be a screen away; the note is now a button that scrolls the check into view (with an empty cart it goes to the order screen). A new scripted walk reads the text of 395 screen states (every outlet with 17 or more carts each, every tab, the See why sheet, the stock check, after a submit) for stray code words ("false", "undefined", "null", "NaN", "[object"): it failed on the site as first published (52 states) and passes on the fix. Unit tests (78), the 26-row acceptance on both layouts and both layout sweeps (758 and 1,146 states) were run again on the final code and pass. Review findings left as they are, by choice: an unavailable product can still be added (the order is never blocked; the review warns), the missing-item chips scroll sideways with the last one cut by the card edge, See why reads the same whether it is opened from a Short or an Over hint, and "Minimum · 0" shows disabled where nothing is needed.
 - **Reviews:** the engine was reviewed line by line against 04 §F by a second builder (11 fixes, listed in the test file's history); the built screens were then checked four ways (acceptance, visual and copy, code, layout) and the findings fixed: the order strip went from about 290 px to about 165 px, "Minimum" is disabled when its set is empty, the outlet card no longer leaves a gap when a count removes a line, the new-owner outlet names "similar shops".
 
 Acceptance matrix (04 §L), final run:
@@ -60,7 +61,7 @@ Acceptance matrix (04 §L), final run:
 | 12 | New owner, empty cart | Pass: Low confidence, "Few orders here · leans on similar shops", "start with 9 cases, and we top up next visit" |
 | 13 | Glass at 10 crates | Pass: "Over · only 4 crates against empties", review note "deposit for more" |
 | 14 | Add the can that is out | Pass: "Unavailable · try Cola 250 ml PET", review warns while it is kept |
-| 15 | Credit-stretched outlet over ₹2,400 | Pass: "Fits ₹2,400 — first: Cola 250 ml PET (runs out first). Collect ₹1,600 to add the rest"; no scheme (Bronze) |
+| 15 | Credit-stretched outlet over ₹2,400 | Pass: "Fits ₹2,400 — first: Cola 250 ml PET (runs out first). Collect ₹1,600 to fit ₹4,000"; no scheme (Bronze) |
 | 16 | Cautious kirana, pooled colas at 8 | Pass: "2 more cases get a free one, but leaves 8+ weeks of stock — not suggested" |
 | 17 | Monthly stall, empty cart | Pass: "Visit gap 29 days — covers 2 weeks. Ask for a top-up" |
 | 18 | A product never bought there | Pass: "No sales history here", no status |
@@ -879,6 +880,9 @@ Right Order (feature):
 - **A product row grows by one line when its quantity goes from 0 to 1** (the base's "In order" line), so the rows below move down.
 - **The stock check** keeps the tapped chip in place by scrolling the page; near the top of the page the chip can shift when a line leaves the card.
 - **Not seen in a browser with real data:** state `not_applicable`, and `insufficient_data` (seen with injected data only).
+- **Card wording wraps unevenly.** On a 390 px screen the headline can break as "Add ~17 cases ·" / "lasts till Wed 6 May", and a line with a long product name starts its second row with "· lasts till …" while a short name keeps it on one row.
+- **See why does not name the cart.** Opened from an Over or a Short hint it explains the suggestion, not why this cart is over or short.
+- **An unavailable product can be added and is priced.** By design the order is never blocked; the hint and the review check both say it is unavailable.
 - **Deviations from 04 §F** are listed at the end of §7.7.
 
 Base:

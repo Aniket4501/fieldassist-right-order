@@ -369,8 +369,15 @@ export function render(container, params) {
   const barPay = h('span', { class: 'order-bar__value num' });
   const submitButton = button('Submit order', { icon: 'check', block: true, onClick: submit });
   // Why Submit is off, in words, right above it. Takes no space when Submit is on.
-  const barWhy = h('p', { class: 'ro-submit-why', hidden: true, attrs: { 'aria-live': 'polite' } },
-    icon('info', { size: 16 }), h('span', { class: 'ro-submit-why__text num' }));
+  // The reason chips can be a screen away, so a tap on the note brings the check into view.
+  const barWhy = h('button', {
+    class: 'ro-submit-why', type: 'button', hidden: true, attrs: { 'aria-live': 'polite' },
+    // With an empty cart there is nothing to pick: the same tap goes to the order screen, as Add items does.
+    onClick: () => {
+      if (checkSection.hidden) location.hash = orderHref;
+      else check.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    },
+  }, icon('info', { size: 16 }), h('span', { class: 'ro-submit-why__text num' }));
   const barWhyText = barWhy.lastChild;
 
   // The engine never throws by contract; a broken result must still leave the order usable.
