@@ -104,7 +104,7 @@ gh repo create <repo-name> --public --source=. --push
 gh api -X POST "repos/{owner}/{repo}/pages" -f "source[branch]=main" -f "source[path]=/"
 ```
 
-This is how the live demo above was published (repository `fieldassist-right-order`). To publish a change later: commit it and `git push`; the site rebuilds in a minute or two.
+This is how the live demo above was published (repository `fieldassist-right-order`). The empty `.nojekyll` file matters: without it GitHub Pages runs the folder through Jekyll, which fails on the braces in `PROGRESS.md`. To publish a change later: commit it and `git push`; the site rebuilds in a minute or two.
 
 Type `{owner}` and `{repo}` as written: the gh CLI fills them in. Without the gh CLI: create an empty repository on github.com, then run `git remote add origin <its URL>` and `git push -u origin main`. In place of the last command you can use the web UI: Settings, Pages, "Deploy from a branch", branch `main`, folder `/ (root)`, Save.
 
@@ -147,5 +147,6 @@ tools/generate-data.mjs    The data generator
 tests/                     Unit tests for the engine and the store
 package.json               Only tells Node the .js files are ES modules; no dependencies
 .gitignore                 Keeps macOS .DS_Store files out of the repository
+.nojekyll                  Tells GitHub Pages to serve the files as they are (no Jekyll build)
 PROGRESS.md                Build log: rules, decisions, module contracts, known issues
 ```

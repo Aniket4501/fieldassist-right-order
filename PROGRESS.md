@@ -236,7 +236,7 @@ Feel: calm, sunlight-readable, field tool not dashboard. Light theme only. Colou
 
 ## 6. File map
 
-All paths are inside `prototype/`. 32 files exist after the feature build, plus 9 data files.
+All paths are inside `prototype/`. 33 files exist after the feature build, plus 9 data files.
 
 | File | Purpose | Stage | State |
 |---|---|---|---|
@@ -271,6 +271,7 @@ All paths are inside `prototype/`. 32 files exist after the feature build, plus 
 | `PROGRESS.md` | This file | 1 | Built |
 | `README.md` | Run, the flow to try, known limits, data, tests, deploy to GitHub Pages, layout | 5 | Built. The feature's last stage rewrites it (03 Stage E) |
 | `.gitignore` | `.DS_Store` only | 5 | Built |
+| `.nojekyll` | Empty. Tells GitHub Pages to serve the files as they are. Without it the Pages build runs Jekyll and fails on the `{{` in this file's code blocks (it did, on the first deploy) | Feature | Built |
 
 ## 7. Module contracts (as built)
 
