@@ -1,0 +1,137 @@
+/* Right Order: styles for the outlet part of the feature. Tokens only (css/tokens.css). */
+
+/* ---- The card at the top of outlet details ---- */
+.ro-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-12);
+  padding: var(--sp-16);
+  border-color: var(--chill);
+  border-top-width: var(--focus-ring);
+}
+.ro-card [hidden] { display: none; }
+.ro-card__top { display: flex; flex-direction: column; gap: var(--sp-12); }
+.ro-card__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--chill-ink);
+}
+.ro-card__head { display: flex; align-items: flex-start; gap: var(--sp-8); }
+.ro-card__tick {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--sp-24);
+  height: var(--sp-24);
+  color: var(--ok-ink);
+  background: var(--ok-bg);
+  border-radius: var(--r-chip);
+}
+.ro-card__headline {
+  text-wrap: balance;   /* keeps "Wed 6 May" together when the headline takes two lines */
+  min-width: 0;
+  font-size: var(--fs-20);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  overflow-wrap: anywhere;
+}
+.ro-card[data-state="quiet"] .ro-card__headline { font-size: var(--fs-16); line-height: var(--lh-base); }
+.ro-card[data-state="none"] { border-color: var(--line); border-top-width: var(--border); }
+.ro-card[data-state="none"] .ro-card__headline { font-size: var(--fs-16); font-weight: var(--fw-regular); color: var(--ink-2); }
+.ro-card[data-state="none"] .ro-card__eyebrow { color: var(--ink-2); }
+
+.ro-card__lines { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.ro-line { display: flex; flex-direction: column; gap: var(--sp-4); padding: var(--sp-8) 0; }
+.ro-line + .ro-line { border-top: var(--border) solid var(--line); }
+.ro-line__main { display: flex; align-items: baseline; gap: var(--sp-8); font-size: var(--fs-16); font-weight: var(--fw-semibold); line-height: var(--lh-tight); overflow-wrap: anywhere; }
+.ro-line__add {
+  flex: none;
+  min-width: var(--sp-32);
+  font-size: var(--fs-20);
+  font-weight: var(--fw-bold);
+  color: var(--chill-ink);
+}
+/* The day never splits: when the name is long, "· lasts till <day>" drops to its own line whole. */
+.ro-line__what { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--sp-4); min-width: 0; }
+.ro-line__till { font-size: var(--fs-14); font-weight: var(--fw-regular); color: var(--ink-2); white-space: nowrap; }
+.ro-card__tick--warn { color: var(--warn-ink); background: var(--warn-bg); }
+.ro-line__reason { padding-left: calc(var(--sp-32) + var(--sp-8)); font-size: var(--fs-14); line-height: var(--lh-tight); color: var(--ink-2); overflow-wrap: anywhere; }
+
+.ro-card__flag {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-8);
+  padding: var(--sp-8) var(--sp-12);
+  font-size: var(--fs-14);
+  line-height: var(--lh-tight);
+  color: var(--chill-ink);
+  background: var(--chill-bg);
+  border-radius: var(--r-control);
+  overflow-wrap: anywhere;
+}
+.ro-card__flag .icon { flex: none; margin-top: var(--border-strong); }
+
+.ro-link {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: var(--sp-4);
+  min-height: var(--control-h);
+  margin: calc(var(--sp-8) * -1) 0;
+  padding: 0;
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  color: var(--primary-ink);
+  text-align: left;
+  background: none;
+  border: 0;
+  border-radius: var(--r-control);
+}
+.ro-link .icon { transition: transform var(--dur) var(--ease); }
+.ro-link[aria-expanded="true"] .icon { transform: rotate(180deg); }
+
+/* ---- Stock check ---- */
+.ro-stock { display: flex; flex-direction: column; border-top: var(--border) solid var(--line); padding-top: var(--sp-12); }
+.ro-stock__title { font-size: var(--fs-14); font-weight: var(--fw-semibold); line-height: var(--lh-tight); color: var(--ink-2); }
+.ro-stock__row { display: flex; flex-direction: column; padding: var(--sp-12) 0 var(--sp-4); }
+.ro-stock__row + .ro-stock__row { border-top: var(--border) solid var(--line); }
+.ro-stock__name { font-size: var(--fs-16); font-weight: var(--fw-semibold); line-height: var(--lh-tight); overflow-wrap: anywhere; }
+.ro-stock__chips { display: grid; grid-template-columns: repeat(6, minmax(var(--control-h), 1fr)); margin: 0 calc(var(--sp-4) * -1); }
+.ro-stock__chips .fchip { min-width: 0; }
+.ro-stock__chips .fchip__pill { margin: 0 var(--sp-4); padding: 0 var(--sp-4); font-size: var(--fs-16); }
+.ro-stock__exact { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-12); padding: var(--sp-4) 0; }
+.ro-stock__exact-label { font-size: var(--fs-14); color: var(--ink-2); }
+.ro-stock__skip { align-self: flex-start; max-width: 100%; }
+.ro-stock__skip .fchip__pill { white-space: normal; text-align: left; }
+
+/* ---- Landing: one line and a badge per route row ---- */
+.ro-landing {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-8);
+  padding: var(--sp-12) var(--sp-16);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  color: var(--chill-ink);
+  background: var(--chill-bg);
+  border-radius: var(--r-card);
+}
+.ro-landing .icon { flex: none; }
+.ro-landing--none { color: var(--ok-ink); background: var(--ok-bg); }
+/* The badge has its own line on every row, so rows keep one height whatever the channel chip says. */
+.ro-badge { display: inline-flex; min-width: 0; }
+
+/* ---- Demo guide sheet ---- */
+.ro-guide__intro { display: flex; align-items: center; gap: var(--sp-8); font-size: var(--fs-14); color: var(--ink-2); }
+.ro-guide { margin: 0 calc(var(--sp-16) * -1); padding: 0; list-style: none; }
+.ro-guide li + li { border-top: var(--border) solid var(--line); }
+.ro-guide .row__subtitle { white-space: normal; }

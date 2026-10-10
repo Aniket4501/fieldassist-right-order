@@ -1,0 +1,392 @@
+[
+  {
+    "id": "OT-101",
+    "name": "Shree Datta Kirana",
+    "area": "Warje",
+    "address": "Shop 6, Ganesh Darshan Society, Warje Malwadi, Pune 411058",
+    "channel": "Traditional Kirana",
+    "shopType": "Traditional Kirana",
+    "cluster": "kirana_cooler",
+    "segment": "Gold",
+    "visitsPerMonth": 4,
+    "locationContext": "Residential cluster, next to the vegetable market",
+    "cooler": {
+      "type": "bottler",
+      "count": 1,
+      "litres": 300
+    },
+    "credit": {
+      "limit": 12000,
+      "outstanding": 3000,
+      "overdue": 0,
+      "overdueSinceDays": 0
+    },
+    "payment": "credit",
+    "glass": null,
+    "owner": {
+      "orderingStyle": "reactive",
+      "riskAppetite": "med",
+      "presentUsually": true
+    },
+    "registeredOn": "2017-08-21",
+    "predecessorId": null,
+    "personaKey": "late-waker",
+    "notes": [
+      {
+        "date": "2025-05-06",
+        "text": "Shelf was nearly empty of 250 ml when I came. Owner was busy all April and is only now ordering for the heat. Says he lost two weeks of cold-drink sales. Asked me to warn him before the heat next year."
+      },
+      {
+        "date": "2026-04-21",
+        "text": "Cooler is well placed at the counter. Owner busy with customers, took his usual order. Says he will stock up when it gets hot."
+      }
+    ]
+  },
+  {
+    "id": "OT-102",
+    "name": "Mahalaxmi Super Bazaar",
+    "area": "Bavdhan",
+    "address": "Ground Floor, Aditya Residency, Bavdhan Main Road, Pune 411021",
+    "channel": "Traditional Kirana",
+    "shopType": "Kirana / Mini-mart",
+    "cluster": "kirana_cooler",
+    "segment": "Diamond",
+    "visitsPerMonth": 4,
+    "locationContext": "Main road, serves housing societies",
+    "cooler": {
+      "type": "bottler",
+      "count": 2,
+      "litres": 300
+    },
+    "credit": {
+      "limit": 20000,
+      "outstanding": 0,
+      "overdue": 0,
+      "overdueSinceDays": 0
+    },
+    "payment": "credit",
+    "glass": null,
+    "owner": {
+      "orderingStyle": "planner",
+      "riskAppetite": "high",
+      "presentUsually": true
+    },
+    "registeredOn": "2015-03-02",
+    "predecessorId": null,
+    "personaKey": "planner-flagship",
+    "notes": [
+      {
+        "date": "2026-03-10",
+        "text": "Owner planned summer stock with me. Wants both coolers full of single-serve before mid-April."
+      },
+      {
+        "date": "2026-04-21",
+        "text": "Took a large order ahead of the long weekend. Back room is full. No dues."
+      }
+    ]
+  },
+  {
+    "id": "OT-103",
+    "name": "Ganesh Provision",
+    "area": "Pashan",
+    "address": "Near Pashan Gaon bus stop, Pashan, Pune 411008",
+    "channel": "Traditional Kirana",
+    "shopType": "Traditional Kirana",
+    "cluster": "kirana_cooler",
+    "segment": "Silver",
+    "visitsPerMonth": 3,
+    "locationContext": "Residential lane",
+    "cooler": {
+      "type": "bottler",
+      "count": 1,
+      "litres": 150
+    },
+    "credit": {
+      "limit": 8000,
+      "outstanding": 0,
+      "overdue": 0,
+      "overdueSinceDays": 0
+    },
+    "payment": "credit",
+    "glass": null,
+    "owner": {
+      "orderingStyle": "cautious",
+      "riskAppetite": "low",
+      "presentUsually": true
+    },
+    "registeredOn": "2016-11-14",
+    "predecessorId": null,
+    "personaKey": "burned-cautious",
+    "notes": [
+      {
+        "date": "2025-06-23",
+        "text": "Big bottles from the late-May order are still on the shelf and the rain has started. Owner says he will have to sell some cheap before they expire. He does not want this again."
+      },
+      {
+        "date": "2026-04-18",
+        "text": "Owner careful about big bottles this year. Will take 250 ml in small top-ups only."
+      }
+    ]
+  },
+  {
+    "id": "OT-104",
+    "name": "Hotel Malhar Dhaba",
+    "area": "Warje",
+    "address": "Service Road, NH-48 bypass, Warje, Pune 411058",
+    "channel": "Eating & Drinking (seating)",
+    "shopType": "Highway Dhaba/Restaurant",
+    "cluster": "eat_drink",
+    "segment": "Silver",
+    "visitsPerMonth": 3,
+    "locationContext": "Highway (NH-48), long-distance traffic",
+    "cooler": {
+      "type": "bottler",
+      "count": 1,
+      "litres": 300
+    },
+    "credit": {
+      "limit": 10000,
+      "outstanding": 0,
+      "overdue": 0,
+      "overdueSinceDays": 0
+    },
+    "payment": "credit",
+    "glass": null,
+    "owner": {
+      "orderingStyle": "event-driven",
+      "riskAppetite": "med",
+      "presentUsually": true
+    },
+    "registeredOn": "2019-01-10",
+    "predecessorId": null,
+    "personaKey": "highway-dhaba",
+    "notes": [
+      {
+        "date": "2025-05-03",
+        "text": "Ran short of 250 ml and water on the Maharashtra Day holiday. Owner wants more stock before long weekends."
+      },
+      {
+        "date": "2026-04-18",
+        "text": "Highway traffic picking up. He still had water, so took less of it. Owner asked about the 1 May long weekend. I am back on 28 April, then not until 8 May."
+      }
+    ]
+  },
+  {
+    "id": "OT-105",
+    "name": "Campus Bites",
+    "area": "Pashan",
+    "address": "College canteen block, Pashan Road campus, Pashan, Pune 411008",
+    "channel": "Education",
+    "shopType": "College Canteen / Cafeteria",
+    "cluster": "education",
+    "segment": "Gold",
+    "visitsPerMonth": 4,
+    "locationContext": "Inside a college campus",
+    "cooler": {
+      "type": "bottler",
+      "count": 1,
+      "litres": 300
+    },
+    "credit": {
+      "limit": 10000,
+      "outstanding": 0,
+      "overdue": 0,
+      "overdueSinceDays": 0
+    },
+    "payment": "credit",
+    "glass": null,
+    "owner": {
+      "orderingStyle": "reactive",
+      "riskAppetite": "med",
+      "presentUsually": true
+    },
+    "registeredOn": "2021-07-05",
+    "predecessorId": null,
+    "personaKey": "campus-canteen",
+    "notes": [
+      {
+        "date": "2025-05-06",
+        "text": "Contractor says exams end this week and the campus shuts till mid-June. He wanted to send back unsold 600 ml. Told him returns are not allowed."
+      },
+      {
+        "date": "2026-04-21",
+        "text": "Took a big order for the last full week of classes. Exams 27 April to 6 May, campus closed 9 May to 15 June. From now he wants only what sells before closing."
+      }
+    ]
+  },
+  {
+    "id": "OT-106",
+    "name": "Sai Shraddha Kirana",
+    "area": "Warje",
+    "address": "Lane 3, Ramnagar, Warje, Pune 411058",
+    "channel": "Traditional Kirana",
+    "shopType": "Traditional Kirana",
+    "cluster": "kirana_nocooler",
+    "segment": "Bronze",
+    "visitsPerMonth": 2,
+    "locationContext": "Residential lane",
+    "cooler": {
+      "type": "none",
+      "count": 0,
+      "litres": 0
+    },
+    "credit": {
+      "limit": 5000,
+      "outstanding": 0,
+      "overdue": 0,
+      "overdueSinceDays": 0
+    },
+    "payment": "credit",
+    "glass": null,
+    "owner": {
+      "orderingStyle": "reactive",
+      "riskAppetite": "med",
+      "presentUsually": true
+    },
+    "registeredOn": "2026-02-16",
+    "predecessorId": "OT-X231",
+    "personaKey": "new-owner",
+    "notes": [
+      {
+        "date": "2026-02-17",
+        "text": "New owner took over this month. The old outlet code is not linked, so the app shows no earlier history. He wants to start small."
+      },
+      {
+        "date": "2026-04-14",
+        "text": "Asked how much cola to keep for summer. I have no numbers from the earlier owner."
+      }
+    ]
+  },
+  {
+    "id": "OT-107",
+    "name": "Om Namah Kirana",
+    "area": "Pashan",
+    "address": "Sutarwadi Road, Pashan, Pune 411021",
+    "channel": "Traditional Kirana",
+    "shopType": "Traditional Kirana",
+    "cluster": "kirana_nocooler",
+    "segment": "Bronze",
+    "visitsPerMonth": 2,
+    "locationContext": "Residential lane",
+    "cooler": {
+      "type": "none",
+      "count": 0,
+      "litres": 0
+    },
+    "credit": {
+      "limit": 4000,
+      "outstanding": 1600,
+      "overdue": 1600,
+      "overdueSinceDays": 75
+    },
+    "payment": "credit",
+    "glass": null,
+    "owner": {
+      "orderingStyle": "cash-capped",
+      "riskAppetite": "low",
+      "presentUsually": true
+    },
+    "registeredOn": "2018-06-25",
+    "predecessorId": null,
+    "personaKey": "credit-stretched",
+    "notes": [
+      {
+        "date": "2025-04-15",
+        "text": "Out of 250 ml cola again. Owner could not take more because of the pending payment."
+      },
+      {
+        "date": "2026-04-14",
+        "text": "₹1,600 still pending since February. Owner says he will pay part next week. Customers keep asking for cold 250 ml."
+      }
+    ]
+  },
+  {
+    "id": "OT-108",
+    "name": "Shree Mithai & Chaat",
+    "area": "Warje",
+    "address": "Opp. Mangal Karyalay, Warje Jakat Naka, Pune 411058",
+    "channel": "Eating & Drinking (standing)",
+    "shopType": "Sweet/Chaat/Bakery",
+    "cluster": "eat_drink",
+    "segment": "Silver",
+    "visitsPerMonth": 3,
+    "locationContext": "Market road, opposite a wedding hall",
+    "cooler": {
+      "type": "bottler",
+      "count": 1,
+      "litres": 150
+    },
+    "credit": {
+      "limit": 9000,
+      "outstanding": 0,
+      "overdue": 0,
+      "overdueSinceDays": 0
+    },
+    "payment": "credit",
+    "glass": {
+      "cratesHeld": 4,
+      "emptiesOnHand": 4
+    },
+    "owner": {
+      "orderingStyle": "event-driven",
+      "riskAppetite": "med",
+      "presentUsually": true
+    },
+    "registeredOn": "2020-02-17",
+    "predecessorId": null,
+    "personaKey": "wedding-glass",
+    "notes": [
+      {
+        "date": "2025-05-13",
+        "text": "Wedding caterers buying 200 ml glass from him. He wanted more crates than he had empties for; full crates come only against empties, and he had 4."
+      },
+      {
+        "date": "2026-04-18",
+        "text": "Wedding orders again this month, 6 crates of glass at a time. 4 empties ready today. Asked about cans; distributor says cans are short."
+      }
+    ]
+  },
+  {
+    "id": "OT-109",
+    "name": "Chandani Chowk Paan & Cold Drinks",
+    "area": "Kothrud",
+    "address": "Chandani Chowk bus stop, Kothrud, Pune 411038",
+    "channel": "Paan/Cigarette shop",
+    "shopType": "Paan & Cold Drink Stall",
+    "cluster": "impulse",
+    "segment": "Iron",
+    "visitsPerMonth": 1,
+    "locationContext": "Bus stop, heavy footfall",
+    "cooler": {
+      "type": "own",
+      "count": 1,
+      "litres": 165
+    },
+    "credit": {
+      "limit": 3000,
+      "outstanding": 0,
+      "overdue": 0,
+      "overdueSinceDays": 0
+    },
+    "payment": "cash",
+    "glass": null,
+    "owner": {
+      "orderingStyle": "reactive",
+      "riskAppetite": "med",
+      "presentUsually": true
+    },
+    "registeredOn": "2022-04-11",
+    "predecessorId": null,
+    "personaKey": "heat-impulse",
+    "notes": [
+      {
+        "date": "2025-05-27",
+        "text": "Owner keeps our 250 ml in his own fridge. Says stock finished within two weeks in the heat, and I come only once a month."
+      },
+      {
+        "date": "2026-03-31",
+        "text": "Wants a company cooler for the bus-stop rush. He is an Iron outlet, so he does not qualify; I noted the request. Pays cash on delivery."
+      }
+    ]
+  }
+]

@@ -1,0 +1,175 @@
+/* Right Order: styles for the order part of the feature. Tokens only (css/tokens.css). */
+
+[hidden].hint, .hint [hidden], .ro-strip [hidden] { display: none; }
+
+/* ---- Line hint: the stepper and its hint share one fixed column, so a long hint wraps and the name keeps its room */
+.product__side {
+  align-items: stretch;
+  width: calc(var(--control-h) * 3 + var(--sp-8));
+}
+.product__side .stepper { align-self: center; }
+.hint {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-12);
+  line-height: var(--lh-tight);
+  color: var(--ink-2);
+  align-items: stretch;
+  justify-content: flex-start;
+  min-height: var(--control-h-lg);   /* room for three lines: a new status does not move the rows below */
+  text-align: left;
+}
+.hint__why {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--sp-4);
+  width: 100%;
+  min-height: var(--control-h);
+  padding: var(--sp-4) var(--sp-8);
+  font: inherit;
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  color: var(--ink-2);
+  text-align: left;
+  background: var(--muted-bg);
+  border: var(--border) solid transparent;
+  border-radius: var(--r-control);
+  cursor: pointer;
+}
+.hint__why:active { border-color: var(--line-strong); }
+.hint__why:focus-visible { outline: var(--focus-ring) solid var(--primary); outline-offset: 2px; }
+.hint__icon { display: inline-flex; flex: none; }
+.hint__text { min-width: 0; overflow-wrap: anywhere; }
+.hint__why[data-tone="ok"] { color: var(--ok-ink); background: var(--ok-bg); }
+.hint__why[data-tone="add"] { color: var(--chill-ink); background: var(--chill-bg); border-color: var(--chill); }
+.hint__why[data-tone="warn"] { color: var(--warn-ink); background: var(--warn-bg); }
+.hint__plain {
+  padding: var(--sp-4) var(--sp-8);
+  font-size: var(--fs-12);
+  line-height: var(--lh-tight);
+  color: var(--ink-2);
+}
+
+/* ---- Top strip */
+.ro-strip {
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-8) var(--sp-16);
+  background: var(--card);
+  border: var(--border) solid var(--line);
+  border-radius: var(--r-card);
+  box-shadow: inset var(--sp-4) 0 0 var(--chill);
+}
+.ro-strip--bare { box-shadow: none; }
+.ro-strip__say { display: flex; flex-direction: column; gap: var(--sp-4); }
+/* The pitch: two lines, a third only for a long sentence at a narrow width. It does not change with the
+   cart, so no height is held back for it. */
+.ro-strip__pitch {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  font-size: var(--fs-14);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  overflow-wrap: anywhere;
+}
+.ro-strip--bare .ro-strip__pitch { font-weight: var(--fw-regular); color: var(--ink-2); }
+.ro-strip__flag, .ro-strip__scheme-text {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  font-size: var(--fs-14);
+  line-height: var(--lh-tight);
+  overflow-wrap: anywhere;
+}
+.ro-strip__flag { font-size: var(--fs-12); color: var(--warn-ink); }
+.ro-strip__flag .icon, .ro-strip__scheme-text .icon { flex: none; margin-top: 1px; }
+/* One action row that scrolls sideways inside itself: Suggested, Minimum, then the missing items.
+   Nothing in it wraps, so the strip keeps its height whatever comes or goes. */
+.ro-strip__actions {
+  display: flex;
+  gap: var(--sp-8);
+  margin: 0 calc(var(--sp-16) * -1);
+  padding: 0 var(--sp-16);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ro-strip__actions::-webkit-scrollbar { display: none; }
+.ro-strip__quick, .ro-strip__missing { display: flex; flex: none; gap: var(--sp-8); }
+.ro-strip__quick .fchip[aria-pressed="true"] .fchip__pill { color: var(--chill-ink); background: var(--chill-bg); border-color: var(--chill); }
+.ro-strip__quick .fchip:disabled .fchip__pill { color: var(--ink-2); background: var(--muted-bg); border-color: var(--line); }
+.ro-strip__missing .ro-tap { flex: none; max-width: none; }
+.ro-strip__missing .ro-tap__label { white-space: nowrap; }
+/* The scheme bar: one line. The count, then the offer button or the note beside it. */
+.ro-strip__scheme {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-8);
+  padding-top: var(--sp-4);
+}
+/* Where an offer can come, the line has one fixed height: a two-line offer or a three-line note sits centred
+   in it and uses the strip's own spacing above and below, so the list never moves. */
+/* The row is as tall as the offer button, so the button never reaches into the row above. On a narrow
+   phone the offer takes three lines, and the row is taller from the start: it never changes height. */
+.ro-strip__scheme--live { height: var(--control-h); padding-top: 0; }
+@media (max-width: 379px) { .ro-strip__scheme--live { height: calc(var(--control-h) + var(--sp-16)); } }
+.ro-strip__scheme-text { font-weight: var(--fw-semibold); color: var(--ink); }
+.ro-strip__scheme--live .ro-strip__scheme-text { flex: none; }
+.ro-strip__scheme-text .icon { color: var(--ink-2); }
+.ro-strip__scheme .ro-tap { flex: 0 1 auto; min-width: 0; margin-left: auto; }
+.ro-strip__scheme .ro-tap__pill { padding: var(--sp-4) var(--sp-8); }
+.ro-strip__note { flex: 1 1 0; min-width: 0; font-size: var(--fs-12); line-height: var(--lh-tight); color: var(--ink-2); overflow-wrap: anywhere; }
+
+/* A one-tap button in the strip: a pill inside a 48px hit area */
+.ro-tap {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: var(--control-h);
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.ro-tap__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-4);
+  min-width: 0;
+  padding: var(--sp-8) var(--sp-12);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  color: var(--chill-ink);
+  background: var(--chill-bg);
+  border: var(--border) solid var(--chill);
+  border-radius: var(--r-chip);
+}
+.ro-tap--nudge .ro-tap__pill { color: var(--primary-ink); background: var(--primary-bg); border-color: var(--primary); border-radius: var(--r-control); }
+.ro-tap__icon { display: inline-flex; flex: none; }
+.ro-tap__label { min-width: 0; overflow-wrap: anywhere; }
+.ro-tap:active .ro-tap__pill { background: var(--card-pressed); }
+.ro-tap:disabled { cursor: default; }
+.ro-tap:disabled .ro-tap__pill { color: var(--ink-2); background: var(--muted-bg); border-color: var(--line); }
+.ro-tap:focus-visible { outline: none; }
+.ro-tap:focus-visible .ro-tap__pill { outline: var(--focus-ring) solid var(--primary); outline-offset: 2px; }
+
+/* ---- See why sheet */
+.why { display: flex; flex-direction: column; gap: var(--sp-12); }
+.why__reason { font-size: var(--fs-16); font-weight: var(--fw-semibold); line-height: var(--lh-base); overflow-wrap: anywhere; }
+.why__sure { display: flex; flex-wrap: wrap; gap: var(--sp-4) var(--sp-8); font-size: var(--fs-14); line-height: var(--lh-tight); }
+.why__sure-label { color: var(--ink-2); }
+.why__block { display: flex; flex-direction: column; gap: var(--sp-4); }
+.why__head { font-size: var(--fs-14); font-weight: var(--fw-bold); line-height: var(--lh-tight); color: var(--ink-2); }
+.why__points { display: flex; flex-direction: column; gap: var(--sp-8); margin: 0; padding: 0; list-style: none; }
+.why__points li { display: flex; align-items: flex-start; gap: var(--sp-8); font-size: var(--fs-16); line-height: var(--lh-base); overflow-wrap: anywhere; }
+.why__points .icon { flex: none; margin-top: var(--sp-4); color: var(--chill-ink); }
+.why .facts__row { padding: var(--sp-8) 0; }
+
+.ro-tap { min-width: var(--control-h); }

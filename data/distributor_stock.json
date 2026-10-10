@@ -1,0 +1,65 @@
+{
+  "asOf": "2026-04-27",
+  "items": [
+    {
+      "sku": "SP-CL250",
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "sku": "SP-LL250",
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "sku": "SP-OR250",
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "sku": "SP-CL200G",
+      "status": "rationed",
+      "note": "Full crates only against empties"
+    },
+    {
+      "sku": "SP-CL300C",
+      "status": "out",
+      "note": "Can shortage (city-wide)"
+    },
+    {
+      "sku": "SP-CL750",
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "sku": "SP-OR125",
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "sku": "SP-CL225",
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "sku": "JD-MG150",
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "sku": "JD-MG600",
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "sku": "WT-1L",
+      "status": "low",
+      "note": "Running low at the distributor"
+    },
+    {
+      "sku": "EN-300C",
+      "status": "ok",
+      "note": ""
+    }
+  ]
+}

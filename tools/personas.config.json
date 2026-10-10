@@ -1,0 +1,496 @@
+{
+  "_about": "Input for tools/generate-data.mjs (v0.5: the v0 seasonal-multiplier model plus deterministic overlays). Every number and all master data live here; the generator holds no numbers. Outlets, orders and notes are synthetic. Persona 'model' blocks are generator parameters and are never written to prototype/data/. 'clusterCurves' is an assumption table of peer seasonal curves, written to data/cluster_benchmarks.json; it is not computed from the synthetic orders.",
+  "config": {
+    "schemaVersion": 1,
+    "demoDate": "2026-04-28",
+    "region": "Pune West, Maharashtra",
+    "rep": { "id": "R-PW-07", "name": "Sagar Jadhav", "role": "Pre-seller", "beatName": "Pune West – Tue beat" },
+    "distributor": { "name": "Shivneri Beverages (Distributor)", "deliveryLeadDays": 1, "stockReportAsOf": "2026-04-27" },
+    "season": { "name": "Summer 2026", "rampStart": "2026-03-01", "peakStart": "2026-04-13", "tailStart": "2026-05-18", "seasonEnd": "2026-06-10" },
+    "demoGuide": [
+      { "outletId": "OT-101", "try": "Tap Start order with suggestion: the two 250 ml sodas hold 9, so +1 Cola 250 earns a free case. Then cut Cola 250 to 2: it turns Short." },
+      { "outletId": "OT-102", "try": "Open it: Covered. The big order of 21 April is still in the shop, so only a top-up is offered." },
+      { "outletId": "OT-103", "try": "Put 4 Cola 250 and 4 Lemon-lime 250 in the cart: 2 short of a free case, and the app says it is not worth it." },
+      { "outletId": "OT-104", "try": "Add 3 Water 1 L, as in his last order: it turns Short. The reason names the long weekend from 1 May and last year's lift." },
+      { "outletId": "OT-105", "try": "Open it: Go light, the college closes on 9 May. Add 8 Cola 250, as in the last order: Over, still in stock when it closes." },
+      { "outletId": "OT-106", "try": "Open it: few orders so far, so it says start small and top up next visit. Add the energy drink: it says No sales history here." },
+      { "outletId": "OT-107", "try": "Tap Start order with suggestion, then Review: it is over the ₹2,400 of free credit. It says what to keep first and what to collect." },
+      { "outletId": "OT-108", "try": "Add 10 crates of Cola 200 ml glass: only 4 go against the empties. Add the Cola 300 ml can: unavailable, try Cola 250 ml PET." },
+      { "outletId": "OT-109", "try": "Open it: the next visit is 29 days away, so the order covers 2 weeks only and the app asks for a top-up visit." }
+    ]
+  },
+  "history": { "start": "2025-01-01", "end": "2026-04-27" },
+  "routePlan": { "from": "2026-04-01", "to": "2026-05-31" },
+  "model": {
+    "_about": "season(serve, d) = 1 + (summerPeak - 1) x summer(d) + (festivePeak - 1) x festive(d), floored at seasonFloor. Shapes are Jan..Dec values placed on midMonthDay and interpolated linearly by day.",
+    "_overlays": "v0.5 overlays run after the order model and never move a persona's main random stream. persona model.fixedOrders [{ date, factor, serve?, skus?, lines? }]: an order is guaranteed on that visit date (noise from a side stream if the visit drew none); the cases of the matching lines are multiplied by factor and rounded, never below the usual order; explicit lines replace the order. persona model.noOrderDuring [event types]: nothing is booked on a visit day inside such an event that applies to the outlet. catchUpShare: the share of cases cut by a supply-out or rationing (calendar.supplyHistory) that is added to the same SKU on the outlet's next order.",
+    "seed": 20260428,
+    "trendTY": 1.05,
+    "trendYear": 2026,
+    "yearMonthFactor": { "2025-06": 0.75 },
+    "seasonFloor": 0.05,
+    "defaultPeak": 1,
+    "midMonthDay": 15,
+    "maxCoverMultiple": 1,
+    "catchUpShare": 1,
+    "shapes": {
+      "summer": [0, 0.04, 0.25, 0.72, 1, 0.62, 0.12, 0, -0.04, 0, -0.02, -0.04],
+      "festive": [0, 0, 0, 0, 0, 0, 0, 0, 0.15, 1, 0.8, 0.15]
+    }
+  },
+  "products": [
+    { "sku": "SP-CL250", "name": "Cola 250 ml PET", "flavour": "Cola", "category": "sparkling", "packMl": 250, "packType": "PET", "unitsPerCase": 28, "mrpUnit": 20, "ptrCase": 476, "marginPct": 15, "shelfLifeDays": 120, "serve": "single", "returnable": false, "focus": true },
+    { "sku": "SP-LL250", "name": "Lemon-lime 250 ml PET", "flavour": "Lemon-lime", "category": "sparkling", "packMl": 250, "packType": "PET", "unitsPerCase": 28, "mrpUnit": 20, "ptrCase": 476, "marginPct": 15, "shelfLifeDays": 120, "serve": "single", "returnable": false, "focus": false },
+    { "sku": "SP-OR250", "name": "Orange 250 ml PET", "flavour": "Orange", "category": "sparkling", "packMl": 250, "packType": "PET", "unitsPerCase": 28, "mrpUnit": 20, "ptrCase": 476, "marginPct": 15, "shelfLifeDays": 120, "serve": "single", "returnable": false, "focus": false },
+    { "sku": "SP-CL200G", "name": "Cola 200 ml glass", "flavour": "Cola", "category": "sparkling", "packMl": 200, "packType": "glass", "unitsPerCase": 24, "mrpUnit": 15, "ptrCase": 306, "marginPct": 15, "shelfLifeDays": 180, "serve": "single", "returnable": true, "focus": true },
+    { "sku": "SP-CL300C", "name": "Cola 300 ml can", "flavour": "Cola", "category": "sparkling", "packMl": 300, "packType": "can", "unitsPerCase": 24, "mrpUnit": 40, "ptrCase": 816, "marginPct": 15, "shelfLifeDays": 240, "serve": "single", "returnable": false, "focus": false },
+    { "sku": "SP-CL750", "name": "Cola 750 ml PET", "flavour": "Cola", "category": "sparkling", "packMl": 750, "packType": "PET", "unitsPerCase": 24, "mrpUnit": 40, "ptrCase": 816, "marginPct": 15, "shelfLifeDays": 120, "serve": "takehome", "returnable": false, "focus": false },
+    { "sku": "SP-OR125", "name": "Orange 1.25 L PET", "flavour": "Orange", "category": "sparkling", "packMl": 1250, "packType": "PET", "unitsPerCase": 12, "mrpUnit": 65, "ptrCase": 663, "marginPct": 15, "shelfLifeDays": 180, "serve": "takehome", "returnable": false, "focus": false },
+    { "sku": "SP-CL225", "name": "Cola 2.25 L PET", "flavour": "Cola", "category": "sparkling", "packMl": 2250, "packType": "PET", "unitsPerCase": 9, "mrpUnit": 95, "ptrCase": 727, "marginPct": 15, "shelfLifeDays": 180, "serve": "takehome", "returnable": false, "focus": false },
+    { "sku": "JD-MG150", "name": "Mango drink 150 ml Tetra", "flavour": "Mango", "category": "juice", "packMl": 150, "packType": "tetra", "unitsPerCase": 40, "mrpUnit": 10, "ptrCase": 340, "marginPct": 15, "shelfLifeDays": 180, "serve": "single", "returnable": false, "focus": true },
+    { "sku": "JD-MG600", "name": "Mango drink 600 ml PET", "flavour": "Mango", "category": "juice", "packMl": 600, "packType": "PET", "unitsPerCase": 24, "mrpUnit": 38, "ptrCase": 775, "marginPct": 15, "shelfLifeDays": 120, "serve": "single", "returnable": false, "focus": false },
+    { "sku": "WT-1L", "name": "Water 1 L PET", "flavour": "Water", "category": "water", "packMl": 1000, "packType": "PET", "unitsPerCase": 15, "mrpUnit": 20, "ptrCase": 240, "marginPct": 20, "shelfLifeDays": 365, "serve": "single", "returnable": false, "focus": false },
+    { "sku": "EN-300C", "name": "Energy drink 300 ml can", "flavour": "Energy", "category": "energy", "packMl": 300, "packType": "can", "unitsPerCase": 24, "mrpUnit": 75, "ptrCase": 1530, "marginPct": 15, "shelfLifeDays": 240, "serve": "single", "returnable": false, "focus": false }
+  ],
+  "schemes": [
+    {
+      "id": "S-005", "name": "Summer Single-Serve Surge",
+      "skus": ["SP-CL250", "SP-LL250", "SP-CL200G"],
+      "type": "buy_x_get_y", "buyCases": 10, "freeCases": 1, "pctOff": null, "minCases": null,
+      "pooled": true, "eligibleSegments": ["Diamond", "Gold", "Silver"],
+      "validFrom": "2026-03-01", "validTo": "2026-05-31", "capPerMonth": 4,
+      "settlementNote": "Free cases credited to the distributor account within 30 days of claim"
+    },
+    {
+      "id": "S-006", "name": "Juice Drink Push",
+      "skus": ["JD-MG150", "JD-MG600"],
+      "type": "pct_off_min_qty", "buyCases": null, "freeCases": null, "pctOff": 8, "minCases": 5,
+      "pooled": true, "eligibleSegments": ["Diamond", "Gold", "Silver", "Bronze", "Iron"],
+      "validFrom": "2026-04-01", "validTo": "2026-06-30", "capPerMonth": null,
+      "settlementNote": "Discount deducted at invoice time"
+    }
+  ],
+  "historicalSchemes": [
+    {
+      "_about": "Last year's scheme. Used only to compute freeCases in 2025 orders; never written to data/schemes.json.",
+      "id": "S-001", "name": "Summer Single-Serve Surge",
+      "skus": ["SP-CL250", "SP-LL250", "SP-CL200G"],
+      "type": "buy_x_get_y", "buyCases": 10, "freeCases": 1, "pctOff": null, "minCases": null,
+      "pooled": true, "eligibleSegments": ["Diamond", "Gold", "Silver"],
+      "validFrom": "2025-03-01", "validTo": "2025-05-31", "capPerMonth": 4,
+      "settlementNote": "Free cases credited to the distributor account within 30 days of claim"
+    }
+  ],
+  "distributorStock": {
+    "asOf": "2026-04-27",
+    "defaultStatus": "ok",
+    "defaultNote": "",
+    "exceptions": [
+      { "sku": "SP-CL300C", "status": "out", "note": "Can shortage (city-wide)" },
+      { "sku": "SP-CL200G", "status": "rationed", "note": "Full crates only against empties" },
+      { "sku": "WT-1L", "status": "low", "note": "Running low at the distributor" }
+    ]
+  },
+  "calendar": {
+    "events": [
+      { "id": "EV-MHDAY-2025", "series": "maharashtra-day", "name": "Maharashtra Day", "type": "holiday", "start": "2025-05-01", "end": "2025-05-01", "appliesTo": "all" },
+      { "id": "EV-MHDAY-2026", "series": "maharashtra-day", "name": "Maharashtra Day long weekend", "type": "long_weekend", "start": "2026-05-01", "end": "2026-05-03", "appliesTo": "all" },
+      { "id": "EV-IPL-2025", "series": "ipl", "name": "IPL 2025", "type": "cricket", "start": "2025-03-22", "end": "2025-06-03", "appliesTo": "all" },
+      { "id": "EV-IPL-2026", "series": "ipl", "name": "IPL 2026", "type": "cricket", "start": "2026-03-28", "end": "2026-05-31", "appliesTo": "all" },
+      { "id": "EV-WED-2025A", "series": "wedding-season", "name": "Wedding season", "type": "wedding_season", "start": "2025-01-01", "end": "2025-02-28", "appliesTo": { "channels": ["Eating & Drinking (seating)", "Eating & Drinking (standing)"] } },
+      { "id": "EV-WED-2025B", "series": "wedding-season", "name": "Wedding season", "type": "wedding_season", "start": "2025-04-01", "end": "2025-05-31", "appliesTo": { "channels": ["Eating & Drinking (seating)", "Eating & Drinking (standing)"] } },
+      { "id": "EV-WED-2025C", "series": "wedding-season", "name": "Wedding season", "type": "wedding_season", "start": "2025-11-01", "end": "2026-02-28", "appliesTo": { "channels": ["Eating & Drinking (seating)", "Eating & Drinking (standing)"] } },
+      { "id": "EV-WED-2026A", "series": "wedding-season", "name": "Wedding season", "type": "wedding_season", "start": "2026-04-01", "end": "2026-05-31", "appliesTo": { "channels": ["Eating & Drinking (seating)", "Eating & Drinking (standing)"] } },
+      { "id": "EV-DIWALI-2025", "series": "diwali", "name": "Diwali", "type": "holiday", "start": "2025-10-18", "end": "2025-10-23", "appliesTo": "all" },
+      { "id": "EV-EXAM-2025", "series": "college-exams", "name": "College exams", "type": "exam", "start": "2025-04-28", "end": "2025-05-07", "appliesTo": ["OT-105"] },
+      { "id": "EV-CLOSE-2025", "series": "college-closure", "name": "College summer closure", "type": "closure", "start": "2025-05-10", "end": "2025-06-15", "appliesTo": ["OT-105"] },
+      { "id": "EV-EXAM-2026", "series": "college-exams", "name": "College exams", "type": "exam", "start": "2026-04-27", "end": "2026-05-06", "appliesTo": ["OT-105"] },
+      { "id": "EV-CLOSE-2026", "series": "college-closure", "name": "College summer closure", "type": "closure", "start": "2026-05-09", "end": "2026-06-15", "appliesTo": ["OT-105"] },
+      { "id": "EV-SCHOOL-2025", "series": "school-vacation", "name": "School summer vacation", "type": "vacation", "start": "2025-05-02", "end": "2025-06-14", "appliesTo": "all" },
+      { "id": "EV-SCHOOL-2026", "series": "school-vacation", "name": "School summer vacation", "type": "vacation", "start": "2026-05-02", "end": "2026-06-14", "appliesTo": "all" }
+    ],
+    "supplyHistory": [
+      { "sku": "SP-CL250", "status": "out", "start": "2025-04-09", "end": "2025-04-15" },
+      { "sku": "WT-1L", "status": "out", "start": "2025-04-14", "end": "2025-04-18" },
+      { "sku": "JD-MG600", "status": "out", "start": "2025-05-02", "end": "2025-05-04" },
+      { "sku": "SP-CL200G", "status": "rationed", "start": "2025-05-01", "end": "2025-05-20" }
+    ],
+    "temperature": {
+      "_about": "Pune weekly maximum (deg C). Monthly climatology Jan..Dec on midMonthDay, interpolated linearly to the Thursday of each ISO week and rounded; overrides then replace single weeks. LY Apr-May follows the sample's weekly temperatures; late May 2025 onward reflects the early monsoon; TY weeks after the demo date are a forecast.",
+      "firstWeek": "2025-W01",
+      "lastWeek": "2026-W22",
+      "climatologyMonthlyMaxC": [31, 34, 37, 39.5, 38, 33, 29, 28, 30, 32, 31, 30],
+      "overrides": {
+        "2025-W14": 37, "2025-W15": 38, "2025-W16": 40, "2025-W17": 41, "2025-W18": 39, "2025-W19": 38, "2025-W20": 37,
+        "2025-W21": 36, "2025-W22": 34, "2025-W23": 32, "2025-W24": 31, "2025-W25": 30, "2025-W26": 29,
+        "2026-W14": 38, "2026-W15": 39, "2026-W16": 40, "2026-W17": 40, "2026-W18": 41, "2026-W19": 40, "2026-W20": 39,
+        "2026-W21": 38, "2026-W22": 37
+      }
+    }
+  },
+  "clusterCurves": {
+    "_about": "Peer seasonal curves for data/cluster_benchmarks.json. A derived ASSUMPTION table (owner's assumptions, strategy 04 section J), not measured data and not computed from the synthetic orders. index(week) = season on the Thursday of the ISO week, divided by its average over the weeks of 'baseline' (so January-February = 1.00), rounded to indexDecimals. season is the order model's formula, 1 + (summerPeak - 1) x summer + (festivePeak - 1) x festive, or an explicit monthly array, read with the shapes below. The summer shape here: ramp from early March, peak mid-April to mid-May, tail to mid-June, then a monsoon dip; the festive shape is the October-November bump. Take-home peaks are 1 + 0.6 x the single-serve uplift. Closures and short events (exams, holidays) are NOT in these curves: the calendar carries them. cv = week-to-week variability. level = typical weekly cases per SKU at index 1.0, only for SKUs the cluster normally stocks.",
+    "note": "Assumption: peer seasonal curves by outlet cluster and pack group, calibrated to the sample glimpse and research. Not measured data. Closures and short events are not in these curves; they come from the calendar.",
+    "year": 2025,
+    "baseline": { "from": "2025-01-01", "to": "2025-02-28" },
+    "indexDecimals": 2,
+    "packGroups": ["single", "takehome"],
+    "shapes": {
+      "summer": [0, 0, 0.25, 1, 1, 0.1, -0.08, -0.08, -0.05, 0, 0, 0],
+      "festive": [0, 0, 0, 0, 0, 0, 0, 0, 0.15, 1, 0.8, 0.15]
+    },
+    "clusters": {
+      "kirana_cooler": {
+        "single": { "summerPeak": 2.07, "festivePeak": 1.08 },
+        "takehome": { "summerPeak": 1.64, "festivePeak": 1.2 },
+        "cv": { "single": 0.35, "takehome": 0.3 },
+        "level": { "SP-CL250": 1.0, "SP-LL250": 0.4, "SP-OR250": 0.25, "SP-CL300C": 0.15, "SP-CL750": 0.7, "SP-OR125": 0.75, "SP-CL225": 1.1, "JD-MG150": 0.45, "JD-MG600": 0.2, "WT-1L": 0.6, "EN-300C": 0.15 }
+      },
+      "kirana_nocooler": {
+        "single": { "summerPeak": 1.35, "festivePeak": 1.05 },
+        "takehome": { "summerPeak": 1.21, "festivePeak": 1.15 },
+        "cv": { "single": 0.4, "takehome": 0.35 },
+        "level": { "SP-CL250": 0.6, "SP-CL750": 0.2, "SP-OR125": 0.35, "SP-CL225": 0.65, "JD-MG150": 0.2, "WT-1L": 0.2 }
+      },
+      "impulse": {
+        "single": { "summerPeak": 3.29, "festivePeak": 1.05 },
+        "takehome": { "summerPeak": 2.37, "festivePeak": 1.1 },
+        "cv": { "single": 0.55, "takehome": 0.5 },
+        "level": { "SP-CL250": 0.6, "SP-LL250": 0.3, "SP-OR250": 0.15, "JD-MG150": 0.2, "WT-1L": 0.3 }
+      },
+      "eat_drink": {
+        "single": { "summerPeak": 1.71, "festivePeak": 1.12 },
+        "takehome": { "summerPeak": 1.43, "festivePeak": 1.2 },
+        "cv": { "single": 0.45, "takehome": 0.4 },
+        "level": { "SP-CL250": 1.0, "SP-LL250": 0.5, "SP-OR250": 0.2, "SP-CL200G": 0.8, "SP-CL300C": 0.2, "SP-CL750": 0.2, "SP-OR125": 0.15, "SP-CL225": 0.4, "JD-MG150": 0.3, "JD-MG600": 0.1, "WT-1L": 0.85, "EN-300C": 0.1 }
+      },
+      "education": {
+        "single": { "monthly": [1, 1, 1, 1.1, 1, 1, 1, 1, 1, 1, 1, 1] },
+        "takehome": { "monthly": [1, 1, 1, 1.1, 1, 1, 1, 1, 1, 1, 1, 1] },
+        "cv": { "single": 0.4, "takehome": 0.35 },
+        "level": { "SP-CL250": 1.9, "SP-LL250": 0.9, "SP-OR250": 0.6, "SP-CL300C": 0.3, "JD-MG150": 1.0, "JD-MG600": 0.7, "WT-1L": 1.3, "EN-300C": 0.6 }
+      }
+    }
+  },
+  "validation": {
+    "lyBaseline": { "from": "2025-01-01", "to": "2025-02-28" },
+    "lyMay": { "from": "2025-05-01", "to": "2025-05-31" },
+    "tyRecent": { "from": "2026-03-31", "to": "2026-04-27" },
+    "nextVisitAfterDemo": {
+      "OT-101": "2026-05-05", "OT-102": "2026-05-05", "OT-105": "2026-05-05",
+      "OT-103": "2026-05-08", "OT-104": "2026-05-08", "OT-108": "2026-05-08",
+      "OT-106": "2026-05-12", "OT-107": "2026-05-12",
+      "OT-109": "2026-05-26"
+    },
+    "avgPtrPerCase": { "min": 450, "max": 650 },
+    "mayIndexMax": { "OT-105": 0.4 },
+    "orderCountRange": { "OT-106": { "min": 3, "max": 6 } },
+    "ordersFileMaxKB": 600,
+    "linesPerOrder": { "min": 3, "max": 5 },
+    "demoGuideMaxChars": 140,
+    "recentWeeks": 4,
+    "mixSumTolerance": 0.000001,
+    "allowedParameterNamedKeys": { "config.json": ["season"], "cluster_benchmarks.json": ["cv"] },
+    "_signature": "v0.5 signature checks. Each one fails the run. Ratios compare whole orders (booked cases). eventWeekRatio: the outlet's orders in the ISO week(s) of an event against its neighbouring ordering weeks (neighboursEachSide before and after); the band must also hold against only the neighbours at most nearWeeks weeks away, which is what a reader sees that does not look past a long gap such as a closure.",
+    "paymentValues": ["cash", "credit"],
+    "cashOutlets": ["OT-109"],
+    "expectedCluster": {
+      "OT-101": "kirana_cooler", "OT-102": "kirana_cooler", "OT-103": "kirana_cooler",
+      "OT-106": "kirana_nocooler", "OT-107": "kirana_nocooler",
+      "OT-104": "eat_drink", "OT-108": "eat_drink",
+      "OT-105": "education", "OT-109": "impulse"
+    },
+    "eventSeries": ["maharashtra-day", "ipl", "wedding-season", "diwali", "college-exams", "college-closure", "school-vacation"],
+    "bigOrders": [
+      { "outletId": "OT-102", "date": "2026-04-21", "previousOrders": 4, "minRatio": 1.5 },
+      { "outletId": "OT-105", "date": "2026-04-21", "previousOrders": 4, "minRatio": 1.5 }
+    ],
+    "eventWeekRatio": [
+      { "outletId": "OT-104", "eventId": "EV-MHDAY-2025", "neighboursEachSide": 2, "nearWeeks": 4, "min": 1.5 },
+      { "outletId": "OT-105", "eventId": "EV-EXAM-2025", "neighboursEachSide": 2, "nearWeeks": 4, "min": 0.45, "max": 0.75 }
+    ],
+    "noOrdersDuring": [{ "outletId": "OT-105", "eventId": "EV-CLOSE-2025" }],
+    "schemeTriggersMax": [{ "outletId": "OT-101", "schemeId": "S-005", "month": "2026-04", "max": 1 }],
+    "skuShare": [{ "outletId": "OT-107", "sku": "SP-CL250", "weeks": 12, "min": 0.4, "max": 0.5 }],
+    "lateRamp": [
+      { "outletId": "OT-101", "serve": "single", "early": { "from": "2025-03-01", "to": "2025-04-14" }, "peak": { "from": "2025-05-01", "to": "2025-05-31" }, "maxRatio": 0.6 }
+    ],
+    "ownStepUp": [
+      { "outletId": "OT-101", "serve": "single", "back": { "from": "2025-04-01", "to": "2025-04-28" }, "forward": { "from": "2025-04-29", "to": "2025-05-12" }, "min": 1.2, "max": 1.4 }
+    ],
+    "packSwing": [
+      { "outletId": "OT-103", "serve": "takehome", "high": { "from": "2025-05-18", "to": "2025-05-31" }, "gap": { "from": "2025-06-01", "to": "2025-06-30" }, "previousOrders": 4, "minRatio": 1.3, "maxGapCases": 1 }
+    ],
+    "clusterBenchmarks": {
+      "clusters": ["kirana_cooler", "kirana_nocooler", "impulse", "eat_drink", "education"],
+      "packGroups": ["single", "takehome"],
+      "weeks": 52,
+      "noteMustInclude": ["Assumption", "Not measured data", "Closures and short events are not in these curves; they come from the calendar."],
+      "cv": { "min": 0.25, "max": 0.6, "highest": "impulse" },
+      "level": { "min": 0, "max": 3 },
+      "mayIndexSingle": {
+        "kirana_cooler": { "min": 1.8, "max": 2.0 },
+        "kirana_nocooler": { "min": 1.2, "max": 1.4 },
+        "impulse": { "min": 2.7, "max": 3.1 },
+        "eat_drink": { "min": 1.5, "max": 1.7 },
+        "education": { "min": 0.95, "max": 1.1 }
+      },
+      "takehomeUpliftShare": { "min": 0.5, "max": 0.7, "clusters": ["kirana_cooler", "kirana_nocooler", "impulse", "eat_drink"] },
+      "weeklyIndexBand": { "education": { "min": 0.95, "max": 1.15 } }
+    }
+  },
+  "personas": [
+    {
+      "outlet": {
+        "id": "OT-101", "name": "Shree Datta Kirana", "area": "Warje",
+        "address": "Shop 6, Ganesh Darshan Society, Warje Malwadi, Pune 411058",
+        "channel": "Traditional Kirana", "shopType": "Traditional Kirana", "cluster": "kirana_cooler", "segment": "Gold", "visitsPerMonth": 4,
+        "locationContext": "Residential cluster, next to the vegetable market",
+        "cooler": { "type": "bottler", "count": 1, "litres": 300 },
+        "credit": { "limit": 12000, "outstanding": 3000, "overdue": 0, "overdueSinceDays": 0 },
+        "payment": "credit",
+        "glass": null,
+        "owner": { "orderingStyle": "reactive", "riskAppetite": "med", "presentUsually": true },
+        "registeredOn": "2017-08-21", "predecessorId": null, "personaKey": "late-waker"
+      },
+      "model": {
+        "cadenceDays": 7, "baseWeekly": 6.0, "orderProb": 0.92, "cv": 0.22, "orderLagDays": 18,
+        "season": { "single": { "summerPeak": 3.0 }, "takehome": { "summerPeak": 1.6, "festivePeak": 1.5 } },
+        "missedVisits": [{ "from": "2025-03-01", "to": "2025-03-31", "prob": 0.5 }],
+        "boosts": [{ "from": "2025-03-01", "to": "2025-04-14", "factor": 0.7, "serve": "single", "note": "owner busy through the 2025 ramp: under-orders single-serve until mid-April (rep note of 6 May 2025)" }],
+        "fixedOrders": [
+          { "date": "2026-03-31", "lines": { "SP-CL250": 4, "SP-LL250": 2, "JD-MG150": 2, "SP-CL750": 2, "WT-1L": 1, "SP-OR250": 1 }, "note": "last 4 weeks pinned: the engine reads these" },
+          { "date": "2026-04-07", "lines": { "SP-CL250": 5, "SP-LL250": 2, "JD-MG150": 2, "SP-CL750": 1, "WT-1L": 2, "SP-OR250": 1 } },
+          { "date": "2026-04-14", "lines": { "SP-CL250": 4, "SP-LL250": 2, "JD-MG150": 2, "SP-CL750": 2, "WT-1L": 1, "SP-OR250": 1, "SP-CL300C": 1 } },
+          { "date": "2026-04-21", "lines": { "SP-CL250": 6, "SP-LL250": 2, "JD-MG150": 2, "SP-CL750": 1, "WT-1L": 2, "SP-OR250": 1 } }
+        ],
+        "mix": { "SP-CL250": 0.36, "SP-LL250": 0.16, "JD-MG150": 0.15, "SP-CL750": 0.12, "WT-1L": 0.12, "SP-OR250": 0.09 }
+      },
+      "notes": [
+        { "date": "2025-05-06", "text": "Shelf was nearly empty of 250 ml when I came. Owner was busy all April and is only now ordering for the heat. Says he lost two weeks of cold-drink sales. Asked me to warn him before the heat next year." },
+        { "date": "2026-04-21", "text": "Cooler is well placed at the counter. Owner busy with customers, took his usual order. Says he will stock up when it gets hot." }
+      ]
+    },
+    {
+      "outlet": {
+        "id": "OT-102", "name": "Mahalaxmi Super Bazaar", "area": "Bavdhan",
+        "address": "Ground Floor, Aditya Residency, Bavdhan Main Road, Pune 411021",
+        "channel": "Traditional Kirana", "shopType": "Kirana / Mini-mart", "cluster": "kirana_cooler", "segment": "Diamond", "visitsPerMonth": 4,
+        "locationContext": "Main road, serves housing societies",
+        "cooler": { "type": "bottler", "count": 2, "litres": 300 },
+        "credit": { "limit": 20000, "outstanding": 0, "overdue": 0, "overdueSinceDays": 0 },
+        "payment": "credit",
+        "glass": null,
+        "owner": { "orderingStyle": "planner", "riskAppetite": "high", "presentUsually": true },
+        "registeredOn": "2015-03-02", "predecessorId": null, "personaKey": "planner-flagship"
+      },
+      "model": {
+        "cadenceDays": 7, "baseWeekly": 8.0, "orderProb": 0.97, "cv": 0.15, "orderLagDays": -7,
+        "season": { "single": { "summerPeak": 2.7 }, "takehome": { "summerPeak": 1.5, "festivePeak": 1.6 } },
+        "fixedOrders": [
+          { "date": "2025-04-08", "lines": { "SP-CL250": 3, "SP-LL250": 3, "SP-OR125": 2, "SP-CL225": 2, "WT-1L": 2 }, "note": "the planner orders every week in April: this visit drew no order, which made his own last-year step-up read too high" },
+          { "date": "2026-03-31", "lines": { "SP-CL250": 5, "SP-CL225": 3, "SP-OR125": 3, "WT-1L": 2, "SP-LL250": 2 }, "note": "last 4 weeks pinned: the engine reads these" },
+          { "date": "2026-04-07", "lines": { "SP-CL250": 5, "SP-CL225": 3, "SP-OR125": 2, "WT-1L": 3, "SP-LL250": 2 } },
+          { "date": "2026-04-14", "lines": { "SP-CL250": 5, "SP-CL225": 4, "SP-OR125": 2, "WT-1L": 2, "SP-LL250": 3 } },
+          { "date": "2026-04-21", "lines": { "SP-CL250": 9, "SP-LL250": 5, "SP-CL225": 5, "WT-1L": 4, "SP-OR125": 3 }, "note": "pre-load before the peak, about 1.7x the usual order; the coolers are filled with single-serve" }
+        ],
+        "mix": { "SP-CL250": 0.30, "SP-CL225": 0.22, "SP-OR125": 0.17, "WT-1L": 0.16, "SP-LL250": 0.15 }
+      },
+      "notes": [
+        { "date": "2026-03-10", "text": "Owner planned summer stock with me. Wants both coolers full of single-serve before mid-April." },
+        { "date": "2026-04-21", "text": "Took a large order ahead of the long weekend. Back room is full. No dues." }
+      ]
+    },
+    {
+      "outlet": {
+        "id": "OT-103", "name": "Ganesh Provision", "area": "Pashan",
+        "address": "Near Pashan Gaon bus stop, Pashan, Pune 411008",
+        "channel": "Traditional Kirana", "shopType": "Traditional Kirana", "cluster": "kirana_cooler", "segment": "Silver", "visitsPerMonth": 3,
+        "locationContext": "Residential lane",
+        "cooler": { "type": "bottler", "count": 1, "litres": 150 },
+        "credit": { "limit": 8000, "outstanding": 0, "overdue": 0, "overdueSinceDays": 0 },
+        "payment": "credit",
+        "glass": null,
+        "owner": { "orderingStyle": "cautious", "riskAppetite": "low", "presentUsually": true },
+        "registeredOn": "2016-11-14", "predecessorId": null, "personaKey": "burned-cautious"
+      },
+      "model": {
+        "cadenceDays": 10, "baseWeekly": 3.5, "orderProb": 0.85, "cv": 0.25, "orderLagDays": 0,
+        "season": { "single": { "summerPeak": 1.8 }, "takehome": { "summerPeak": 1.1, "festivePeak": 1.4 } },
+        "boosts": [
+          { "from": "2025-05-18", "to": "2025-05-31", "factor": 1.8, "serve": "takehome", "note": "over-ordered take-home in late May 2025" },
+          { "from": "2025-06-01", "to": "2025-06-30", "factor": 0.05, "serve": "takehome", "note": "leftovers: almost no take-home orders in June 2025" }
+        ],
+        "mix": { "SP-CL250": 0.14, "SP-LL250": 0.06, "JD-MG150": 0.08, "SP-CL750": 0.16, "SP-OR125": 0.18, "SP-CL225": 0.28, "WT-1L": 0.10 }
+      },
+      "notes": [
+        { "date": "2025-06-23", "text": "Big bottles from the late-May order are still on the shelf and the rain has started. Owner says he will have to sell some cheap before they expire. He does not want this again." },
+        { "date": "2026-04-18", "text": "Owner careful about big bottles this year. Will take 250 ml in small top-ups only." }
+      ]
+    },
+    {
+      "outlet": {
+        "id": "OT-104", "name": "Hotel Malhar Dhaba", "area": "Warje",
+        "address": "Service Road, NH-48 bypass, Warje, Pune 411058",
+        "channel": "Eating & Drinking (seating)", "shopType": "Highway Dhaba/Restaurant", "cluster": "eat_drink", "segment": "Silver", "visitsPerMonth": 3,
+        "locationContext": "Highway (NH-48), long-distance traffic",
+        "cooler": { "type": "bottler", "count": 1, "litres": 300 },
+        "credit": { "limit": 10000, "outstanding": 0, "overdue": 0, "overdueSinceDays": 0 },
+        "payment": "credit",
+        "glass": null,
+        "owner": { "orderingStyle": "event-driven", "riskAppetite": "med", "presentUsually": true },
+        "registeredOn": "2019-01-10", "predecessorId": null, "personaKey": "highway-dhaba"
+      },
+      "model": {
+        "cadenceDays": 10, "baseWeekly": 6.5, "orderProb": 0.9, "cv": 0.35, "orderLagDays": 0,
+        "season": { "single": { "summerPeak": 1.75 }, "takehome": { "summerPeak": 1.35, "festivePeak": 1.2 } },
+        "eventEffects": { "holiday": 1.6, "long_weekend": 1.8, "wedding_season": 1.15 },
+        "fixedOrders": [
+          { "date": "2025-05-03", "factor": 1.6, "serve": "single", "note": "Maharashtra Day 2025: single-serve spike in the holiday week" },
+          { "date": "2026-04-08", "lines": { "SP-CL250": 6, "WT-1L": 6, "SP-LL250": 3, "SP-CL225": 2, "SP-OR250": 1, "JD-MG150": 1 }, "note": "last 4 weeks pinned: the engine reads these" },
+          { "date": "2026-04-18", "lines": { "SP-CL250": 6, "WT-1L": 3, "SP-LL250": 3, "SP-CL225": 1, "SP-OR250": 1, "JD-MG150": 1 }, "note": "he still had water, so took less of it" }
+        ],
+        "mix": { "SP-CL250": 0.34, "WT-1L": 0.28, "SP-LL250": 0.16, "SP-CL225": 0.10, "SP-OR250": 0.06, "JD-MG150": 0.06 }
+      },
+      "notes": [
+        { "date": "2025-05-03", "text": "Ran short of 250 ml and water on the Maharashtra Day holiday. Owner wants more stock before long weekends." },
+        { "date": "2026-04-18", "text": "Highway traffic picking up. He still had water, so took less of it. Owner asked about the 1 May long weekend. I am back on 28 April, then not until 8 May." }
+      ]
+    },
+    {
+      "outlet": {
+        "id": "OT-105", "name": "Campus Bites", "area": "Pashan",
+        "address": "College canteen block, Pashan Road campus, Pashan, Pune 411008",
+        "channel": "Education", "shopType": "College Canteen / Cafeteria", "cluster": "education", "segment": "Gold", "visitsPerMonth": 4,
+        "locationContext": "Inside a college campus",
+        "cooler": { "type": "bottler", "count": 1, "litres": 300 },
+        "credit": { "limit": 10000, "outstanding": 0, "overdue": 0, "overdueSinceDays": 0 },
+        "payment": "credit",
+        "glass": null,
+        "owner": { "orderingStyle": "reactive", "riskAppetite": "med", "presentUsually": true },
+        "registeredOn": "2021-07-05", "predecessorId": null, "personaKey": "campus-canteen"
+      },
+      "model": {
+        "cadenceDays": 7, "baseWeekly": 8.5, "orderProb": 0.9, "cv": 0.25, "orderLagDays": 0,
+        "season": { "single": { "monthly": [1.0, 1.05, 1.45, 1.35, 1.3, 1.1, 1.4, 1.35, 1.3, 1.1, 1.2, 0.7] } },
+        "eventEffects": { "exam": 0.6, "closure": 0 },
+        "noOrderDuring": ["closure"],
+        "fixedOrders": [
+          { "date": "2025-05-06", "lines": { "SP-CL250": 2, "SP-LL250": 1, "JD-MG150": 2, "WT-1L": 2, "SP-OR250": 1 }, "note": "small order of fast movers in the second exam week of 2025, before the campus shuts; no 600 ml, he had unsold stock (rep note of 6 May 2025)" },
+          { "date": "2026-03-31", "lines": { "SP-CL250": 3, "WT-1L": 3, "JD-MG150": 2, "SP-LL250": 2, "JD-MG600": 2, "SP-OR250": 1 }, "note": "last 4 weeks pinned: an order every week, at its normal size" },
+          { "date": "2026-04-07", "lines": { "SP-CL250": 3, "WT-1L": 3, "JD-MG150": 2, "SP-LL250": 2, "JD-MG600": 1, "SP-OR250": 1 } },
+          { "date": "2026-04-14", "lines": { "SP-CL250": 3, "WT-1L": 3, "JD-MG150": 2, "SP-LL250": 2, "JD-MG600": 2, "SP-OR250": 1 } },
+          { "date": "2026-04-21", "lines": { "SP-CL250": 8, "JD-MG150": 5, "WT-1L": 3, "SP-LL250": 2, "SP-OR250": 2, "JD-MG600": 1 }, "note": "large pre-exam order: the last full week of classes; the leaders are loaded" }
+        ],
+        "mix": { "SP-CL250": 0.26, "WT-1L": 0.20, "JD-MG150": 0.16, "SP-LL250": 0.15, "JD-MG600": 0.12, "SP-OR250": 0.11 }
+      },
+      "notes": [
+        { "date": "2025-05-06", "text": "Contractor says exams end this week and the campus shuts till mid-June. He wanted to send back unsold 600 ml. Told him returns are not allowed." },
+        { "date": "2026-04-21", "text": "Took a big order for the last full week of classes. Exams 27 April to 6 May, campus closed 9 May to 15 June. From now he wants only what sells before closing." }
+      ]
+    },
+    {
+      "outlet": {
+        "id": "OT-106", "name": "Sai Shraddha Kirana", "area": "Warje",
+        "address": "Lane 3, Ramnagar, Warje, Pune 411058",
+        "channel": "Traditional Kirana", "shopType": "Traditional Kirana", "cluster": "kirana_nocooler", "segment": "Bronze", "visitsPerMonth": 2,
+        "locationContext": "Residential lane",
+        "cooler": { "type": "none", "count": 0, "litres": 0 },
+        "credit": { "limit": 5000, "outstanding": 0, "overdue": 0, "overdueSinceDays": 0 },
+        "payment": "credit",
+        "glass": null,
+        "owner": { "orderingStyle": "reactive", "riskAppetite": "med", "presentUsually": true },
+        "registeredOn": "2026-02-16", "predecessorId": "OT-X231", "personaKey": "new-owner"
+      },
+      "model": {
+        "cadenceDays": 14, "baseWeekly": 3.0, "orderProb": 0.9, "cv": 0.35, "orderLagDays": 0,
+        "season": { "single": { "summerPeak": 1.6 }, "takehome": { "summerPeak": 1.3, "festivePeak": 1.3 } },
+        "mix": { "SP-CL225": 0.35, "SP-CL250": 0.25, "SP-OR125": 0.20, "WT-1L": 0.20 }
+      },
+      "notes": [
+        { "date": "2026-02-17", "text": "New owner took over this month. The old outlet code is not linked, so the app shows no earlier history. He wants to start small." },
+        { "date": "2026-04-14", "text": "Asked how much cola to keep for summer. I have no numbers from the earlier owner." }
+      ]
+    },
+    {
+      "outlet": {
+        "id": "OT-107", "name": "Om Namah Kirana", "area": "Pashan",
+        "address": "Sutarwadi Road, Pashan, Pune 411021",
+        "channel": "Traditional Kirana", "shopType": "Traditional Kirana", "cluster": "kirana_nocooler", "segment": "Bronze", "visitsPerMonth": 2,
+        "locationContext": "Residential lane",
+        "cooler": { "type": "none", "count": 0, "litres": 0 },
+        "credit": { "limit": 4000, "outstanding": 1600, "overdue": 1600, "overdueSinceDays": 75 },
+        "payment": "credit",
+        "glass": null,
+        "owner": { "orderingStyle": "cash-capped", "riskAppetite": "low", "presentUsually": true },
+        "registeredOn": "2018-06-25", "predecessorId": null, "personaKey": "credit-stretched"
+      },
+      "model": {
+        "cadenceDays": 14, "baseWeekly": 2.7, "orderProb": 0.82, "cv": 0.3, "orderLagDays": 0,
+        "season": { "single": { "summerPeak": 1.5 }, "takehome": { "summerPeak": 1.2, "festivePeak": 1.3 } },
+        "maxOrderValue": 3800,
+        "fixedOrders": [
+          { "date": "2025-04-29", "lines": { "SP-CL250": 4, "SP-CL225": 1 }, "note": "an ordinary order in the Maharashtra Day week of 2025 (the water held back on 15 April comes on top), so no holiday effect shows by chance" },
+          { "date": "2026-03-31", "lines": { "SP-CL250": 3, "SP-CL225": 1, "SP-OR125": 1, "WT-1L": 1 }, "note": "last 4 weeks pinned: the engine reads these" },
+          { "date": "2026-04-14", "lines": { "SP-CL250": 3, "SP-CL225": 1, "SP-OR125": 1, "WT-1L": 1 } }
+        ],
+        "mix": { "SP-CL250": 0.45, "SP-CL225": 0.22, "SP-OR125": 0.15, "WT-1L": 0.18 }
+      },
+      "notes": [
+        { "date": "2025-04-15", "text": "Out of 250 ml cola again. Owner could not take more because of the pending payment." },
+        { "date": "2026-04-14", "text": "₹1,600 still pending since February. Owner says he will pay part next week. Customers keep asking for cold 250 ml." }
+      ]
+    },
+    {
+      "outlet": {
+        "id": "OT-108", "name": "Shree Mithai & Chaat", "area": "Warje",
+        "address": "Opp. Mangal Karyalay, Warje Jakat Naka, Pune 411058",
+        "channel": "Eating & Drinking (standing)", "shopType": "Sweet/Chaat/Bakery", "cluster": "eat_drink", "segment": "Silver", "visitsPerMonth": 3,
+        "locationContext": "Market road, opposite a wedding hall",
+        "cooler": { "type": "bottler", "count": 1, "litres": 150 },
+        "credit": { "limit": 9000, "outstanding": 0, "overdue": 0, "overdueSinceDays": 0 },
+        "payment": "credit",
+        "glass": { "cratesHeld": 4, "emptiesOnHand": 4 },
+        "owner": { "orderingStyle": "event-driven", "riskAppetite": "med", "presentUsually": true },
+        "registeredOn": "2020-02-17", "predecessorId": null, "personaKey": "wedding-glass"
+      },
+      "model": {
+        "cadenceDays": 10, "baseWeekly": 5.0, "orderProb": 0.88, "cv": 0.35, "orderLagDays": 0,
+        "season": { "single": { "summerPeak": 1.5 } },
+        "eventEffects": { "wedding_season": { "factor": 1.5, "skus": ["SP-CL200G"] } },
+        "fixedOrders": [
+          { "date": "2026-04-08", "lines": { "SP-CL200G": 6, "SP-CL250": 3, "WT-1L": 2, "SP-LL250": 1, "JD-MG150": 1, "SP-CL300C": 1 }, "note": "last 4 weeks pinned: the engine reads these" },
+          { "date": "2026-04-18", "lines": { "SP-CL200G": 6, "SP-CL250": 2, "WT-1L": 1, "SP-LL250": 1, "JD-MG150": 1 } }
+        ],
+        "mix": { "SP-CL200G": 0.44, "SP-CL250": 0.18, "SP-LL250": 0.12, "WT-1L": 0.12, "JD-MG150": 0.08, "SP-CL300C": 0.06 }
+      },
+      "notes": [
+        { "date": "2025-05-13", "text": "Wedding caterers buying 200 ml glass from him. He wanted more crates than he had empties for; full crates come only against empties, and he had 4." },
+        { "date": "2026-04-18", "text": "Wedding orders again this month, 6 crates of glass at a time. 4 empties ready today. Asked about cans; distributor says cans are short." }
+      ]
+    },
+    {
+      "outlet": {
+        "id": "OT-109", "name": "Chandani Chowk Paan & Cold Drinks", "area": "Kothrud",
+        "address": "Chandani Chowk bus stop, Kothrud, Pune 411038",
+        "channel": "Paan/Cigarette shop", "shopType": "Paan & Cold Drink Stall", "cluster": "impulse", "segment": "Iron", "visitsPerMonth": 1,
+        "locationContext": "Bus stop, heavy footfall",
+        "cooler": { "type": "own", "count": 1, "litres": 165 },
+        "credit": { "limit": 3000, "outstanding": 0, "overdue": 0, "overdueSinceDays": 0 },
+        "payment": "cash",
+        "glass": null,
+        "owner": { "orderingStyle": "reactive", "riskAppetite": "med", "presentUsually": true },
+        "registeredOn": "2022-04-11", "predecessorId": null, "personaKey": "heat-impulse"
+      },
+      "model": {
+        "cadenceDays": 28, "baseWeekly": 1.6, "orderProb": 0.92, "cv": 0.3, "orderLagDays": 0,
+        "season": { "single": { "summerPeak": 3.0 } },
+        "mix": { "SP-CL250": 0.40, "SP-LL250": 0.18, "SP-OR250": 0.10, "JD-MG150": 0.14, "WT-1L": 0.18 }
+      },
+      "notes": [
+        { "date": "2025-05-27", "text": "Owner keeps our 250 ml in his own fridge. Says stock finished within two weeks in the heat, and I come only once a month." },
+        { "date": "2026-03-31", "text": "Wants a company cooler for the bus-stop rush. He is an Iron outlet, so he does not qualify; I noted the request. Pays cash on delivery." }
+      ]
+    }
+  ]
+}

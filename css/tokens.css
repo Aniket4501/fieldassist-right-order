@@ -1,0 +1,99 @@
+/* Design tokens — GT App demo. Light theme only (outdoor use).
+   Every colour, type size, spacing step and radius used in app.css is defined here. */
+
+:root {
+  /* Colours (foundation spec) */
+  --ink: #0F1B2D;        /* text */
+  --ink-2: #4A5568;      /* secondary text */
+  --line: #E3E8EF;       /* 1px lines */
+  --bg: #F5F7FA;         /* app background */
+  --card: #FFFFFF;
+  --primary: #0B5FFF;    /* actions */
+  --chill: #0E9FB8;      /* cold / season accent: borders, icons and tints only (3.1:1 on white) */
+  --ok: #12805C;
+  --warn: #B25E09;
+  --risk: #C2341B;
+  --muted-bg: #EEF2F7;
+
+  /* Derived */
+  --backdrop: #DDE2EA;          /* desktop surround */
+  --on-primary: #FFFFFF;
+  --primary-hover: #0A54E0;
+  --primary-pressed: #0847C2;
+  --risk-pressed: #A32A14;
+  --card-pressed: #F0F4F9;      /* pressed rows and quiet buttons */
+  --line-strong: #C3CCD9;       /* control borders */
+
+  /* Light tint per tone, for chips and banners (fixed values, no color-mix) */
+  --primary-bg: #E8F0FF;
+  --chill-bg: #E3F5F8;
+  --ok-bg: #E4F4EE;
+  --warn-bg: #FBF0E1;
+  --risk-bg: #FBEAE6;
+
+  /* Text-safe shade per tone (small text on its tint, at least 4.5:1) */
+  --primary-ink: #0847C2;
+  --chill-ink: #0B6B7D;
+  --ok-ink: #0D6548;
+  --warn-ink: #8A4706;
+  --risk-ink: #A32A14;
+
+  /* The demo bar: the frame around the product */
+  --bar-bg: #0F1B2D;
+  --on-bar: #FFFFFF;
+  --on-bar-2: #C6CFDC;
+  --bar-tint: #26344A;
+  --bar-pressed: #33435C;
+
+  --scrim: rgba(15, 27, 45, 0.5);
+
+  /* Type */
+  --font: -apple-system, Roboto, "Segoe UI", Inter, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --fs-12: 0.75rem;
+  --fs-14: 0.875rem;
+  --fs-16: 1rem;
+  --fs-20: 1.25rem;
+  --fs-24: 1.5rem;
+  --fs-32: 2rem;
+  --fw-regular: 400;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --lh-tight: 1.25;
+  --lh-base: 1.45;
+
+  /* Spacing: 4-point scale */
+  --sp-4: 4px;
+  --sp-8: 8px;
+  --sp-12: 12px;
+  --sp-16: 16px;
+  --sp-24: 24px;
+  --sp-32: 32px;
+
+  /* Radius */
+  --r-card: 12px;
+  --r-control: 12px;
+  --r-chip: 999px;
+
+  /* The single elevation level */
+  --elevation: 0 1px 2px rgba(15, 27, 45, 0.06), 0 6px 20px rgba(15, 27, 45, 0.08);
+
+  /* Controls and layout */
+  --control-h: 48px;     /* minimum hit area, both directions */
+  --control-h-lg: 56px;  /* primary action in a sticky bar */
+  --bar-h: 48px;         /* demo bar */
+  --header-h: 56px;      /* app header */
+  --row-min: 72px;       /* list row */
+  --app-max: 430px;      /* app column */
+  --border: 1px;
+  --border-strong: 2px;
+  --icon: 20px;          /* default icon size, for padding beside an icon */
+  --menu-min: 208px;     /* demo bar menu */
+  --focus-ring: 3px;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 160ms;
+}

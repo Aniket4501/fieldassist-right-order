@@ -1,0 +1,51 @@
+[
+  {
+    "id": "S-005",
+    "name": "Summer Single-Serve Surge",
+    "skus": [
+      "SP-CL250",
+      "SP-LL250",
+      "SP-CL200G"
+    ],
+    "type": "buy_x_get_y",
+    "buyCases": 10,
+    "freeCases": 1,
+    "pctOff": null,
+    "minCases": null,
+    "pooled": true,
+    "eligibleSegments": [
+      "Diamond",
+      "Gold",
+      "Silver"
+    ],
+    "validFrom": "2026-03-01",
+    "validTo": "2026-05-31",
+    "capPerMonth": 4,
+    "settlementNote": "Free cases credited to the distributor account within 30 days of claim"
+  },
+  {
+    "id": "S-006",
+    "name": "Juice Drink Push",
+    "skus": [
+      "JD-MG150",
+      "JD-MG600"
+    ],
+    "type": "pct_off_min_qty",
+    "buyCases": null,
+    "freeCases": null,
+    "pctOff": 8,
+    "minCases": 5,
+    "pooled": true,
+    "eligibleSegments": [
+      "Diamond",
+      "Gold",
+      "Silver",
+      "Bronze",
+      "Iron"
+    ],
+    "validFrom": "2026-04-01",
+    "validTo": "2026-06-30",
+    "capPerMonth": null,
+    "settlementNote": "Discount deducted at invoice time"
+  }
+]

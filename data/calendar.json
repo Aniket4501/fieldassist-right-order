@@ -1,0 +1,269 @@
+{
+  "events": [
+    {
+      "id": "EV-MHDAY-2025",
+      "series": "maharashtra-day",
+      "name": "Maharashtra Day",
+      "type": "holiday",
+      "start": "2025-05-01",
+      "end": "2025-05-01",
+      "appliesTo": "all"
+    },
+    {
+      "id": "EV-MHDAY-2026",
+      "series": "maharashtra-day",
+      "name": "Maharashtra Day long weekend",
+      "type": "long_weekend",
+      "start": "2026-05-01",
+      "end": "2026-05-03",
+      "appliesTo": "all"
+    },
+    {
+      "id": "EV-IPL-2025",
+      "series": "ipl",
+      "name": "IPL 2025",
+      "type": "cricket",
+      "start": "2025-03-22",
+      "end": "2025-06-03",
+      "appliesTo": "all"
+    },
+    {
+      "id": "EV-IPL-2026",
+      "series": "ipl",
+      "name": "IPL 2026",
+      "type": "cricket",
+      "start": "2026-03-28",
+      "end": "2026-05-31",
+      "appliesTo": "all"
+    },
+    {
+      "id": "EV-WED-2025A",
+      "series": "wedding-season",
+      "name": "Wedding season",
+      "type": "wedding_season",
+      "start": "2025-01-01",
+      "end": "2025-02-28",
+      "appliesTo": {
+        "channels": [
+          "Eating & Drinking (seating)",
+          "Eating & Drinking (standing)"
+        ]
+      }
+    },
+    {
+      "id": "EV-WED-2025B",
+      "series": "wedding-season",
+      "name": "Wedding season",
+      "type": "wedding_season",
+      "start": "2025-04-01",
+      "end": "2025-05-31",
+      "appliesTo": {
+        "channels": [
+          "Eating & Drinking (seating)",
+          "Eating & Drinking (standing)"
+        ]
+      }
+    },
+    {
+      "id": "EV-WED-2025C",
+      "series": "wedding-season",
+      "name": "Wedding season",
+      "type": "wedding_season",
+      "start": "2025-11-01",
+      "end": "2026-02-28",
+      "appliesTo": {
+        "channels": [
+          "Eating & Drinking (seating)",
+          "Eating & Drinking (standing)"
+        ]
+      }
+    },
+    {
+      "id": "EV-WED-2026A",
+      "series": "wedding-season",
+      "name": "Wedding season",
+      "type": "wedding_season",
+      "start": "2026-04-01",
+      "end": "2026-05-31",
+      "appliesTo": {
+        "channels": [
+          "Eating & Drinking (seating)",
+          "Eating & Drinking (standing)"
+        ]
+      }
+    },
+    {
+      "id": "EV-DIWALI-2025",
+      "series": "diwali",
+      "name": "Diwali",
+      "type": "holiday",
+      "start": "2025-10-18",
+      "end": "2025-10-23",
+      "appliesTo": "all"
+    },
+    {
+      "id": "EV-EXAM-2025",
+      "series": "college-exams",
+      "name": "College exams",
+      "type": "exam",
+      "start": "2025-04-28",
+      "end": "2025-05-07",
+      "appliesTo": [
+        "OT-105"
+      ]
+    },
+    {
+      "id": "EV-CLOSE-2025",
+      "series": "college-closure",
+      "name": "College summer closure",
+      "type": "closure",
+      "start": "2025-05-10",
+      "end": "2025-06-15",
+      "appliesTo": [
+        "OT-105"
+      ]
+    },
+    {
+      "id": "EV-EXAM-2026",
+      "series": "college-exams",
+      "name": "College exams",
+      "type": "exam",
+      "start": "2026-04-27",
+      "end": "2026-05-06",
+      "appliesTo": [
+        "OT-105"
+      ]
+    },
+    {
+      "id": "EV-CLOSE-2026",
+      "series": "college-closure",
+      "name": "College summer closure",
+      "type": "closure",
+      "start": "2026-05-09",
+      "end": "2026-06-15",
+      "appliesTo": [
+        "OT-105"
+      ]
+    },
+    {
+      "id": "EV-SCHOOL-2025",
+      "series": "school-vacation",
+      "name": "School summer vacation",
+      "type": "vacation",
+      "start": "2025-05-02",
+      "end": "2025-06-14",
+      "appliesTo": "all"
+    },
+    {
+      "id": "EV-SCHOOL-2026",
+      "series": "school-vacation",
+      "name": "School summer vacation",
+      "type": "vacation",
+      "start": "2026-05-02",
+      "end": "2026-06-14",
+      "appliesTo": "all"
+    }
+  ],
+  "supplyHistory": [
+    {
+      "sku": "SP-CL250",
+      "status": "out",
+      "start": "2025-04-09",
+      "end": "2025-04-15"
+    },
+    {
+      "sku": "WT-1L",
+      "status": "out",
+      "start": "2025-04-14",
+      "end": "2025-04-18"
+    },
+    {
+      "sku": "JD-MG600",
+      "status": "out",
+      "start": "2025-05-02",
+      "end": "2025-05-04"
+    },
+    {
+      "sku": "SP-CL200G",
+      "status": "rationed",
+      "start": "2025-05-01",
+      "end": "2025-05-20"
+    }
+  ],
+  "weeklyMaxTempC": {
+    "2025-W01": 31,
+    "2025-W02": 31,
+    "2025-W03": 31,
+    "2025-W04": 32,
+    "2025-W05": 32,
+    "2025-W06": 33,
+    "2025-W07": 34,
+    "2025-W08": 35,
+    "2025-W09": 35,
+    "2025-W10": 36,
+    "2025-W11": 37,
+    "2025-W12": 37,
+    "2025-W13": 38,
+    "2025-W14": 37,
+    "2025-W15": 38,
+    "2025-W16": 40,
+    "2025-W17": 41,
+    "2025-W18": 39,
+    "2025-W19": 38,
+    "2025-W20": 37,
+    "2025-W21": 36,
+    "2025-W22": 34,
+    "2025-W23": 32,
+    "2025-W24": 31,
+    "2025-W25": 30,
+    "2025-W26": 29,
+    "2025-W27": 31,
+    "2025-W28": 30,
+    "2025-W29": 29,
+    "2025-W30": 29,
+    "2025-W31": 28,
+    "2025-W32": 28,
+    "2025-W33": 28,
+    "2025-W34": 28,
+    "2025-W35": 29,
+    "2025-W36": 29,
+    "2025-W37": 30,
+    "2025-W38": 30,
+    "2025-W39": 31,
+    "2025-W40": 31,
+    "2025-W41": 32,
+    "2025-W42": 32,
+    "2025-W43": 32,
+    "2025-W44": 32,
+    "2025-W45": 31,
+    "2025-W46": 31,
+    "2025-W47": 31,
+    "2025-W48": 31,
+    "2025-W49": 30,
+    "2025-W50": 30,
+    "2025-W51": 30,
+    "2025-W52": 30,
+    "2026-W01": 31,
+    "2026-W02": 31,
+    "2026-W03": 31,
+    "2026-W04": 32,
+    "2026-W05": 32,
+    "2026-W06": 33,
+    "2026-W07": 34,
+    "2026-W08": 34,
+    "2026-W09": 35,
+    "2026-W10": 36,
+    "2026-W11": 37,
+    "2026-W12": 37,
+    "2026-W13": 38,
+    "2026-W14": 38,
+    "2026-W15": 39,
+    "2026-W16": 40,
+    "2026-W17": 40,
+    "2026-W18": 41,
+    "2026-W19": 40,
+    "2026-W20": 39,
+    "2026-W21": 38,
+    "2026-W22": 37
+  }
+}

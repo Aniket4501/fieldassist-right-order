@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "demoDate": "2026-04-28",
+  "region": "Pune West, Maharashtra",
+  "rep": {
+    "id": "R-PW-07",
+    "name": "Sagar Jadhav",
+    "role": "Pre-seller",
+    "beatName": "Pune West – Tue beat"
+  },
+  "distributor": {
+    "name": "Shivneri Beverages (Distributor)",
+    "deliveryLeadDays": 1,
+    "stockReportAsOf": "2026-04-27"
+  },
+  "season": {
+    "name": "Summer 2026",
+    "rampStart": "2026-03-01",
+    "peakStart": "2026-04-13",
+    "tailStart": "2026-05-18",
+    "seasonEnd": "2026-06-10"
+  },
+  "demoGuide": [
+    {
+      "outletId": "OT-101",
+      "try": "Tap Start order with suggestion: the two 250 ml sodas hold 9, so +1 Cola 250 earns a free case. Then cut Cola 250 to 2: it turns Short."
+    },
+    {
+      "outletId": "OT-102",
+      "try": "Open it: Covered. The big order of 21 April is still in the shop, so only a top-up is offered."
+    },
+    {
+      "outletId": "OT-103",
+      "try": "Put 4 Cola 250 and 4 Lemon-lime 250 in the cart: 2 short of a free case, and the app says it is not worth it."
+    },
+    {
+      "outletId": "OT-104",
+      "try": "Add 3 Water 1 L, as in his last order: it turns Short. The reason names the long weekend from 1 May and last year's lift."
+    },
+    {
+      "outletId": "OT-105",
+      "try": "Open it: Go light, the college closes on 9 May. Add 8 Cola 250, as in the last order: Over, still in stock when it closes."
+    },
+    {
+      "outletId": "OT-106",
+      "try": "Open it: few orders so far, so it says start small and top up next visit. Add the energy drink: it says No sales history here."
+    },
+    {
+      "outletId": "OT-107",
+      "try": "Tap Start order with suggestion, then Review: it is over the ₹2,400 of free credit. It says what to keep first and what to collect."
+    },
+    {
+      "outletId": "OT-108",
+      "try": "Add 10 crates of Cola 200 ml glass: only 4 go against the empties. Add the Cola 300 ml can: unavailable, try Cola 250 ml PET."
+    },
+    {
+      "outletId": "OT-109",
+      "try": "Open it: the next visit is 29 days away, so the order covers 2 weeks only and the app asks for a top-up visit."
+    }
+  ]
+}

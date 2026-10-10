@@ -1,0 +1,68 @@
+/* Right Order: styles for the review part of the feature. Tokens only (css/tokens.css). */
+
+/* The check card: a calm accent on the leading edge, rows divided by lines. */
+.ro-check__card {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border-left: var(--sp-4) solid var(--chill);
+  overflow: hidden;
+}
+.ro-check__items { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.ro-check__items[hidden],
+.ro-check__note[hidden],
+.ro-check[hidden],
+.ro-submit-why[hidden] { display: none; }
+
+.ro-check__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: var(--sp-12) var(--sp-16) var(--sp-4);
+  border-bottom: var(--border) solid var(--line);
+}
+.ro-check__head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-8); min-width: 0; }
+.ro-check__name {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  overflow-wrap: anywhere;
+}
+.ro-check__mark { flex: none; }
+.ro-check__hint { font-size: var(--fs-16); line-height: var(--lh-base); color: var(--ink); overflow-wrap: anywhere; }
+.ro-check__ask { margin-top: var(--sp-4); font-size: var(--fs-12); line-height: var(--lh-tight); color: var(--ink-2); }
+.ro-check__item--open .ro-check__ask { font-weight: var(--fw-semibold); color: var(--warn-ink); }
+
+/* Reason chips wrap; each keeps the 48px hit area of .fchip. */
+.ro-check__reasons { display: flex; flex-wrap: wrap; gap: 0 var(--sp-8); min-width: 0; }
+
+.ro-check__note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-12);
+  padding: var(--sp-12) var(--sp-16);
+  border-bottom: var(--border) solid var(--line);
+}
+.ro-check__card > :last-child,
+.ro-check__items:last-child > :last-child { border-bottom: 0; }
+.ro-check__note > .icon { flex: none; margin-top: var(--border); color: var(--ink-2); }
+.ro-check__note--ok > .icon { color: var(--ok); }
+.ro-check__note--chill > .icon { color: var(--chill); }
+.ro-check__note--warn > .icon { color: var(--warn); }
+.ro-check__body { display: flex; flex: 1 1 auto; flex-direction: column; gap: var(--sp-8); min-width: 0; }
+.ro-check__text { font-size: var(--fs-16); line-height: var(--lh-base); overflow-wrap: anywhere; }
+.ro-check__sub { font-size: var(--fs-14); line-height: var(--lh-base); color: var(--ink-2); overflow-wrap: anywhere; }
+.ro-check__extra .btn { white-space: normal; text-align: left; }
+
+/* Why Submit is off: one short line above the button. */
+.ro-submit-why {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-8);
+  font-size: var(--fs-14);
+  line-height: var(--lh-tight);
+  color: var(--warn-ink);
+}
+.ro-submit-why > .icon { flex: none; color: var(--warn); }
